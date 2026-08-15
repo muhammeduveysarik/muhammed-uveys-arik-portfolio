@@ -23,6 +23,9 @@ export const metadata: Metadata = {
     'Bilecik Şeyh Edebali University',
   ],
   authors: [{ name: 'Muhammed Üveys Arık' }],
+  verification: {
+  google: 'HQ6AgLCPQoIjbmFNx3ozI2OO9B8U-tGlhbqggasECcI',
+},
   creator: 'Muhammed Üveys Arık',
   openGraph: {
     title: 'Muhammed Üveys Arık | Computer Engineering Student',
