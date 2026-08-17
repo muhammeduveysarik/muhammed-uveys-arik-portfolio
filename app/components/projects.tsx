@@ -1,23 +1,61 @@
-import SectionWrapper from './section-wrapper'
+import SectionWrapper from "./section-wrapper"
 
 export default function Projects() {
   return (
-    <SectionWrapper id="projects" className="py-24 sm:py-32" delay={100}>
+    <SectionWrapper id="projects" className="py-24 sm:py-32">
       <div className="max-w-[1200px] mx-auto px-6">
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
+        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-10">
           <span className="gradient-text">Projects</span>
         </h2>
-        <div className="glass-card rounded-xl p-8 sm:p-10 border-dashed border-2 border-white/10 hover:border-cyan-500/20 transition-all duration-300">
-          <div className="text-center">
-            <div className="w-16 h-16 mx-auto mb-4 rounded-xl flex items-center justify-center bg-cyan-500/10">
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#06b6d4" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"/><line x1="12" y1="11" x2="12" y2="17"/><line x1="9" y1="14" x2="15" y2="14"/></svg>
+
+        <div className="glass-card rounded-xl p-8 sm:p-10">
+          <div className="flex flex-col gap-6">
+            <div>
+              <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">
+                DevOps Project
+              </span>
+
+              <h3 className="mt-4 text-2xl font-semibold text-white">
+                DevOps Status Dashboard
+              </h3>
+
+              <p className="mt-3 max-w-3xl text-gray-400 leading-relaxed">
+                Docker container içerisinde çalışan Flask tabanlı durum takip
+                uygulaması. Projede servis sağlık kontrolü, Gunicorn production
+                sunucusu, Docker Compose ve GitHub Actions ile otomatik CI
+                pipeline bulunmaktadır.
+              </p>
             </div>
-            <h3 className="text-xl font-semibold text-white mb-2">
-              Projects Coming Soon
-            </h3>
-            <p className="text-gray-400 text-sm max-w-md mx-auto">
-              Selected projects will be featured here as I continue to build and develop my skills. Please check back soon to see what I&apos;m working on.
-            </p>
+
+            <div className="flex flex-wrap gap-2">
+              {[
+                "Docker",
+                "Docker Compose",
+                "Python",
+                "Flask",
+                "Gunicorn",
+                "GitHub Actions",
+                "CI/CD",
+              ].map((technology) => (
+                <span
+                  key={technology}
+                  className="rounded-md bg-white/5 px-3 py-1.5 text-sm text-gray-300"
+                >
+                  {technology}
+                </span>
+              ))}
+            </div>
+
+            <div>
+              <a
+                href="https://github.com/muhammeduveysarik/devops-status-app"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center rounded-lg bg-cyan-500 px-5 py-3 font-medium text-slate-950 transition hover:bg-cyan-400"
+              >
+                GitHub&apos;da Görüntüle ↗
+              </a>
+            </div>
           </div>
         </div>
       </div>
