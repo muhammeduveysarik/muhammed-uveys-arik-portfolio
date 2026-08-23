@@ -119,6 +119,66 @@ export default function Projects() {
             </div>
           </div>
 
+          {/* StajRadar Project */}
+          <div className="glass-card rounded-xl p-8 sm:p-10">
+            <div className="flex flex-col gap-6">
+              <div>
+                <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">
+                  Web Application
+                </span>
+
+                <h3 className="mt-4 text-2xl font-semibold text-white">
+                  StajRadar
+                </h3>
+
+                <p className="mt-3 max-w-3xl text-gray-400 leading-relaxed">
+                  Staj başvurularını tek noktadan yönetmek ve takip etmek için
+                  geliştirilmiş web uygulaması. Başvuru ekleme, düzenleme,
+                  durum takibi, filtreleme, dashboard istatistikleri ve
+                  başvuruların bekleme sürelerini analiz eden Takip Merkezi
+                  özelliklerini içerir.
+                </p>
+              </div>
+
+              <div className="flex flex-wrap gap-2">
+                {[
+                  "Next.js",
+                  "React",
+                  "TypeScript",
+                  "Tailwind CSS",
+                  "Vercel",
+                ].map((technology) => (
+                  <span
+                    key={technology}
+                    className="rounded-md bg-white/5 px-3 py-1.5 text-sm text-gray-300"
+                  >
+                    {technology}
+                  </span>
+                ))}
+              </div>
+
+              <div className="flex flex-wrap gap-3">
+                <a
+                  href="https://stajradar.vercel.app"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-lg bg-cyan-500 px-5 py-3 font-medium text-slate-950 transition hover:bg-cyan-400"
+                >
+                  Canlı Site ↗
+                </a>
+
+                <a
+                  href="https://github.com/muhammeduveysarik/stajradar"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center rounded-lg border border-white/10 bg-white/5 px-5 py-3 font-medium text-white transition hover:bg-white/10"
+                >
+                  GitHub&apos;da Görüntüle ↗
+                </a>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
     </SectionWrapper>
