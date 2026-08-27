@@ -1,7 +1,6 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import SectionWrapper from './section-wrapper'
+import { useEffect, useRef, useState } from 'react'
 
 type Language = 'en' | 'tr'
 
@@ -26,20 +25,31 @@ const exploringAreas = [
 
 const content = {
   en: {
-    heading: 'Skills & Interests',
-    technical: 'Technical Skills',
-    exploring: 'Currently Exploring',
+    label: 'SKILLS & INTERESTS',
+    heading: 'Tools I use.',
+    headingAccent: 'Fields I explore.',
+    intro:
+      'Developing practical technical skills while exploring the areas of computer engineering that interest me most.',
+    technical: 'TECHNICAL SKILLS',
+    exploring: 'CURRENTLY EXPLORING',
   },
 
   tr: {
-    heading: 'Yetenekler & İlgi Alanları',
-    technical: 'Teknik Yetenekler',
-    exploring: 'Keşfettiğim Alanlar',
+    label: 'YETENEKLER & İLGİ ALANLARI',
+    heading: 'Kullandığım araçlar.',
+    headingAccent: 'Keşfettiğim alanlar.',
+    intro:
+      'Pratik teknik becerilerimi geliştirirken bilgisayar mühendisliğinde ilgimi çeken farklı alanları keşfetmeye devam ediyorum.',
+    technical: 'TEKNİK YETENEKLER',
+    exploring: 'KEŞFETTİĞİM ALANLAR',
   },
 }
 
 export default function Skills() {
   const [language, setLanguage] = useState<Language>('en')
+  const [visible, setVisible] = useState(false)
+
+  const sectionRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language')
@@ -55,112 +65,215 @@ export default function Skills() {
 
     window.addEventListener('languageChange', handleLanguageChange)
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      {
+        threshold: 0.15,
+      }
+    )
+
+    const currentSection = sectionRef.current
+
+    if (currentSection) {
+      observer.observe(currentSection)
+    }
+
     return () => {
-      window.removeEventListener('languageChange', handleLanguageChange)
+      window.removeEventListener(
+        'languageChange',
+        handleLanguageChange
+      )
+
+      observer.disconnect()
     }
   }, [])
 
   const text = content[language]
 
   return (
-    <SectionWrapper
+    <section
+      ref={sectionRef}
       id="skills"
-      className="py-24 sm:py-32"
-      delay={100}
+      className="relative overflow-hidden border-t border-white/[0.08] bg-[hsl(var(--background))]"
     >
-      <div className="max-w-[1200px] mx-auto px-6">
+      <div className="mx-auto max-w-[1400px] px-6 py-28 sm:px-10 sm:py-36 lg:px-14 lg:py-44">
 
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
-          <span className="gradient-text">
-            {text.heading}
+        {/* SECTION LABEL */}
+        <div
+          className={`mb-14 flex items-center gap-4 transition-all duration-700 ${
+            visible
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-5 opacity-0'
+          }`}
+        >
+          <span className="font-mono text-[10px] tracking-[0.3em] text-white/30">
+            03
           </span>
-        </h2>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <span className="h-px w-10 bg-white/15" />
 
-          {/* Technical Skills */}
-          <div className="glass-card rounded-xl p-6 hover:border-cyan-500/20 transition-all duration-300 group">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-white/35">
+            {text.label}
+          </span>
+        </div>
 
-            <div className="flex items-center gap-3 mb-5">
+        {/* TOP */}
+        <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
 
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-cyan-500/10 group-hover:bg-cyan-500/20 transition-colors">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#06b6d4"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M16 18l6-6-6-6" />
-                  <path d="M8 6l-6 6 6 6" />
-                </svg>
-              </div>
+          {/* HEADING */}
+          <div
+            className={`transition-all duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
+            }`}
+          >
+            <h2 className="max-w-[800px] text-[clamp(3.2rem,6.5vw,7rem)] font-semibold leading-[0.9] tracking-[-0.06em] text-white">
+              {text.heading}
 
-              <h3 className="text-lg font-semibold text-white">
-                {text.technical}
-              </h3>
-
-            </div>
-
-            <div className="flex flex-wrap gap-2">
-              {technicalSkills.map((skill) => (
-                <span
-                  key={skill}
-                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-white/5 text-gray-300 border border-white/5 hover:border-cyan-500/30 hover:text-cyan-300 transition-colors duration-200"
-                >
-                  {skill}
-                </span>
-              ))}
-            </div>
-
+              <span className="mt-2 block text-white/30">
+                {text.headingAccent}
+              </span>
+            </h2>
           </div>
 
-          {/* Exploring Areas */}
-          <div className="glass-card rounded-xl p-6 hover:border-cyan-500/20 transition-all duration-300 group">
+          {/* INTRO */}
+          <div
+            className={`flex items-end transition-all delay-150 duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
+            }`}
+          >
+            <p className="max-w-xl text-lg leading-[1.75] text-white/45 sm:text-xl">
+              {text.intro}
+            </p>
+          </div>
+        </div>
 
-            <div className="flex items-center gap-3 mb-5">
+        {/* DIVIDER */}
+        <div className="my-16 overflow-hidden sm:my-20">
+          <div
+            className={`h-px origin-left bg-white/10 transition-transform delay-200 duration-1000 ${
+              visible ? 'scale-x-100' : 'scale-x-0'
+            }`}
+          />
+        </div>
 
-              <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-cyan-500/10 group-hover:bg-cyan-500/20 transition-colors">
-                <svg
-                  width="20"
-                  height="20"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="#06b6d4"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="10" />
-                  <line x1="2" y1="12" x2="22" y2="12" />
-                  <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z" />
-                </svg>
-              </div>
+        {/* SKILLS CONTENT */}
+        <div className="grid gap-16 lg:grid-cols-2 lg:gap-24">
 
-              <h3 className="text-lg font-semibold text-white">
-                {text.exploring}
-              </h3>
+          {/* TECHNICAL */}
+          <div
+            className={`transition-all delay-300 duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-8 opacity-0'
+            }`}
+          >
+            <div className="mb-8 flex items-center justify-between border-b border-white/10 pb-5">
+
+              <p className="font-mono text-[10px] tracking-[0.28em] text-white/35">
+                {text.technical}
+              </p>
+
+              <span className="font-mono text-[10px] text-white/20">
+                01 — 07
+              </span>
 
             </div>
 
-            <div className="flex flex-wrap gap-2">
-              {exploringAreas.map((area) => (
-                <span
-                  key={area}
-                  className="px-3 py-1.5 text-xs font-medium rounded-full bg-white/5 text-gray-300 border border-white/5 hover:border-cyan-500/30 hover:text-cyan-300 transition-colors duration-200"
+            <div>
+              {technicalSkills.map((skill, index) => (
+                <div
+                  key={skill}
+                  className="group flex items-center justify-between border-b border-white/[0.08] py-5"
                 >
-                  {area}
-                </span>
+                  <div className="flex items-center gap-5">
+
+                    <span className="font-mono text-[10px] text-white/20">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    <span className="text-xl font-medium tracking-tight text-white/75 transition-all duration-300 group-hover:translate-x-2 group-hover:text-white sm:text-2xl">
+                      {skill}
+                    </span>
+
+                  </div>
+
+                  <span className="translate-x-2 text-lg text-white/0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-white/40">
+                    ↗
+                  </span>
+                </div>
               ))}
             </div>
+          </div>
 
+          {/* EXPLORING */}
+          <div
+            className={`transition-all delay-500 duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-8 opacity-0'
+            }`}
+          >
+            <div className="mb-8 flex items-center justify-between border-b border-white/10 pb-5">
+
+              <p className="font-mono text-[10px] tracking-[0.28em] text-white/35">
+                {text.exploring}
+              </p>
+
+              <span className="font-mono text-[10px] text-white/20">
+                01 — 06
+              </span>
+
+            </div>
+
+            <div>
+              {exploringAreas.map((area, index) => (
+                <div
+                  key={area}
+                  className="group flex items-center justify-between border-b border-white/[0.08] py-5"
+                >
+                  <div className="flex items-center gap-5">
+
+                    <span className="font-mono text-[10px] text-white/20">
+                      {String(index + 1).padStart(2, '0')}
+                    </span>
+
+                    <span className="text-xl font-medium tracking-tight text-white/75 transition-all duration-300 group-hover:translate-x-2 group-hover:text-white sm:text-2xl">
+                      {area}
+                    </span>
+
+                  </div>
+
+                  <span className="translate-x-2 text-lg text-white/0 transition-all duration-300 group-hover:translate-x-0 group-hover:text-white/40">
+                    ↗
+                  </span>
+                </div>
+              ))}
+            </div>
           </div>
 
         </div>
       </div>
-    </SectionWrapper>
+
+      {/* BACKGROUND DETAILS */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[300px] top-[120px] h-[650px] w-[650px] rounded-full border border-white/[0.02]"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-[70px] top-[350px] h-[220px] w-[220px] rounded-full border border-white/[0.02]"
+      />
+
+    </section>
   )
 }
