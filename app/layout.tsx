@@ -23,15 +23,17 @@ export const metadata: Metadata = {
   title: 'Muhammed Üveys Arık | Computer Engineering Student',
 
   description:
-    'Muhammed Üveys Arık is a Computer Engineering student at Bilecik Şeyh Edebali University, interested in DevOps & Cloud, Backend Development, and Deep Learning.',
+    'Muhammed Üveys Arık is a Computer Engineering student at Bilecik Şeyh Edebali University, exploring Data, Artificial Intelligence, DevOps, Cloud Computing, Cybersecurity, and Software Engineering.',
 
   keywords: [
     'Muhammed Üveys Arık',
     'Computer Engineering',
+    'Data',
+    'Artificial Intelligence',
     'DevOps',
     'Cloud Computing',
-    'Backend Development',
-    'Deep Learning',
+    'Cybersecurity',
+    'Software Engineering',
     'Bilecik Şeyh Edebali University',
   ],
 
@@ -51,7 +53,7 @@ export const metadata: Metadata = {
     title: 'Muhammed Üveys Arık | Computer Engineering Student',
 
     description:
-      'Personal portfolio of Muhammed Üveys Arık — Computer Engineering student at Bilecik Şeyh Edebali University, interested in Software Engineering, DevOps, and Cloud Computing.',
+      'Personal portfolio of Muhammed Üveys Arık — Computer Engineering student exploring Data, AI, DevOps, Cloud, Cybersecurity, and Software Engineering.',
 
     url: 'https://muhammeduveysa.dev',
 
@@ -73,11 +75,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
-
     title: 'Muhammed Üveys Arık | Computer Engineering Student',
-
     description:
-      'Personal portfolio of Muhammed Üveys Arık — Computer Engineering student at Bilecik Şeyh Edebali University.',
+      'Personal portfolio of Muhammed Üveys Arık — Computer Engineering student.',
   },
 
   alternates: {
@@ -97,7 +97,6 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     '@context': 'https://schema.org',
-
     '@type': 'Person',
 
     name: 'Muhammed Üveys Arık',
@@ -144,8 +143,6 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <head>
-
-        {/* Apply theme before page is displayed */}
         <script
           dangerouslySetInnerHTML={{
             __html: themeScript,
@@ -165,7 +162,6 @@ export default function RootLayout({
             __html: JSON.stringify(jsonLd),
           }}
         />
-
       </head>
 
       <body
