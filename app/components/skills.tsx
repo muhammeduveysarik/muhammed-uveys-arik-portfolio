@@ -1,39 +1,86 @@
 'use client'
 
+import { useEffect, useState } from 'react'
 import SectionWrapper from './section-wrapper'
 
-export default function Skills() {
-  const technicalSkills = [
-    'C',
-    'Python',
-    'Linux',
-    'Docker',
-    'Git',
-    'GitHub',
-    'CI/CD',
-  ]
+type Language = 'en' | 'tr'
 
-  const exploringAreas = [
-    'Data',
-    'Artificial Intelligence',
-    'DevOps',
-    'Cloud Computing',
-    'Cybersecurity',
-    'Software Engineering',
-  ]
+const technicalSkills = [
+  'C',
+  'Python',
+  'Linux',
+  'Docker',
+  'Git',
+  'GitHub',
+  'CI/CD',
+]
+
+const exploringAreas = [
+  'Data',
+  'Artificial Intelligence',
+  'DevOps',
+  'Cloud Computing',
+  'Cybersecurity',
+  'Software Engineering',
+]
+
+const content = {
+  en: {
+    heading: 'Skills & Interests',
+    technical: 'Technical Skills',
+    exploring: 'Currently Exploring',
+  },
+
+  tr: {
+    heading: 'Yetenekler & İlgi Alanları',
+    technical: 'Teknik Yetenekler',
+    exploring: 'Keşfettiğim Alanlar',
+  },
+}
+
+export default function Skills() {
+  const [language, setLanguage] = useState<Language>('en')
+
+  useEffect(() => {
+    const savedLanguage = localStorage.getItem('language')
+
+    if (savedLanguage === 'en' || savedLanguage === 'tr') {
+      setLanguage(savedLanguage)
+    }
+
+    const handleLanguageChange = (event: Event) => {
+      const customEvent = event as CustomEvent<Language>
+      setLanguage(customEvent.detail)
+    }
+
+    window.addEventListener('languageChange', handleLanguageChange)
+
+    return () => {
+      window.removeEventListener('languageChange', handleLanguageChange)
+    }
+  }, [])
+
+  const text = content[language]
 
   return (
-    <SectionWrapper id="skills" className="py-24 sm:py-32" delay={100}>
+    <SectionWrapper
+      id="skills"
+      className="py-24 sm:py-32"
+      delay={100}
+    >
       <div className="max-w-[1200px] mx-auto px-6">
 
         <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
-          <span className="gradient-text">Skills & Interests</span>
+          <span className="gradient-text">
+            {text.heading}
+          </span>
         </h2>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
 
           {/* Technical Skills */}
           <div className="glass-card rounded-xl p-6 hover:border-cyan-500/20 transition-all duration-300 group">
+
             <div className="flex items-center gap-3 mb-5">
 
               <div className="w-10 h-10 rounded-lg flex items-center justify-center bg-cyan-500/10 group-hover:bg-cyan-500/20 transition-colors">
@@ -53,7 +100,7 @@ export default function Skills() {
               </div>
 
               <h3 className="text-lg font-semibold text-white">
-                Technical Skills
+                {text.technical}
               </h3>
 
             </div>
@@ -68,9 +115,10 @@ export default function Skills() {
                 </span>
               ))}
             </div>
+
           </div>
 
-          {/* Currently Exploring */}
+          {/* Exploring Areas */}
           <div className="glass-card rounded-xl p-6 hover:border-cyan-500/20 transition-all duration-300 group">
 
             <div className="flex items-center gap-3 mb-5">
@@ -93,7 +141,7 @@ export default function Skills() {
               </div>
 
               <h3 className="text-lg font-semibold text-white">
-                Currently Exploring
+                {text.exploring}
               </h3>
 
             </div>
@@ -110,6 +158,7 @@ export default function Skills() {
             </div>
 
           </div>
+
         </div>
       </div>
     </SectionWrapper>
