@@ -3,48 +3,40 @@
 @tailwind utilities;
 
 /* =========================================================
-   THEME SYSTEM
+   PERMANENT DARK THEME
    ========================================================= */
 
 @layer base {
   :root {
-    /* LIGHT MODE */
-    --background: 0 0% 98%;
-    --foreground: 220 20% 10%;
-
-    --card: 0 0% 100%;
-    --card-foreground: 220 20% 10%;
-
-    --muted: 220 10% 94%;
-    --muted-foreground: 220 8% 42%;
-
-    --border: 220 10% 86%;
-
-    --primary: 220 20% 10%;
-    --primary-foreground: 0 0% 100%;
-
-    --radius: 0.75rem;
-
-    --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.05);
-    --shadow-md: 0 12px 35px rgb(0 0 0 / 0.08);
-    --shadow-lg: 0 25px 60px rgb(0 0 0 / 0.12);
-  }
-
-  .dark {
-    /* DARK MODE */
     --background: 225 10% 5%;
     --foreground: 0 0% 96%;
 
     --card: 225 8% 8%;
     --card-foreground: 0 0% 96%;
 
-    --muted: 225 7% 13%;
-    --muted-foreground: 220 7% 62%;
-
-    --border: 225 7% 18%;
+    --popover: 225 8% 8%;
+    --popover-foreground: 0 0% 96%;
 
     --primary: 0 0% 96%;
     --primary-foreground: 225 10% 5%;
+
+    --secondary: 225 7% 13%;
+    --secondary-foreground: 0 0% 92%;
+
+    --muted: 225 7% 13%;
+    --muted-foreground: 220 7% 62%;
+
+    --accent: 225 7% 17%;
+    --accent-foreground: 0 0% 96%;
+
+    --border: 225 7% 18%;
+    --input: 225 7% 18%;
+    --ring: 0 0% 80%;
+
+    --radius: 0.75rem;
+    --radius-sm: calc(0.75rem - 4px);
+    --radius-lg: calc(0.75rem + 4px);
+    --radius-full: 9999px;
 
     --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.35);
     --shadow-md: 0 12px 35px rgb(0 0 0 / 0.4);
@@ -53,7 +45,8 @@
 
   html {
     scroll-behavior: smooth;
-    background: hsl(var(--background));
+    background: #0b0b0d;
+    color-scheme: dark;
   }
 
   * {
@@ -62,13 +55,8 @@
 
   body {
     margin: 0;
-
     background: hsl(var(--background));
     color: hsl(var(--foreground));
-
-    transition:
-      background-color 0.35s ease,
-      color 0.35s ease;
 
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -76,8 +64,8 @@
   }
 
   ::selection {
-    background: hsl(var(--foreground) / 0.14);
-    color: hsl(var(--foreground));
+    background: rgb(255 255 255 / 0.15);
+    color: white;
   }
 
   ::-webkit-scrollbar {
@@ -90,13 +78,17 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background: hsl(var(--border));
+    background: rgb(255 255 255 / 0.14);
     border-radius: 9999px;
+  }
+
+  ::-webkit-scrollbar-thumb:hover {
+    background: rgb(255 255 255 / 0.22);
   }
 }
 
 /* =========================================================
-   GENERAL DESIGN
+   DESIGN
    ========================================================= */
 
 @layer utilities {
@@ -110,61 +102,55 @@
     scrollbar-width: none;
   }
 
-  /* ---------------------------------------------------------
+  /* =======================================================
      HERO
-     --------------------------------------------------------- */
+     ======================================================= */
 
   .hero-gradient {
     background:
       radial-gradient(
         ellipse 60% 45% at 50% -15%,
-        rgb(0 0 0 / 0.035),
+        rgb(255 255 255 / 0.055),
         transparent 70%
       ),
-      hsl(var(--background));
-  }
-
-  .dark .hero-gradient {
-    background:
       radial-gradient(
-        ellipse 60% 45% at 50% -15%,
-        rgb(255 255 255 / 0.05),
+        ellipse 35% 30% at 85% 15%,
+        rgb(255 255 255 / 0.018),
         transparent 70%
       ),
       hsl(var(--background));
   }
 
-
-  /* ---------------------------------------------------------
-     GLASS CARDS
-     --------------------------------------------------------- */
+  /* =======================================================
+     GLASS CARD
+     ======================================================= */
 
   .glass-card {
-    background: hsl(var(--card) / 0.85);
+    background: hsl(var(--card) / 0.82);
 
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 
-    border: 1px solid hsl(var(--border));
+    border: 1px solid rgb(255 255 255 / 0.08);
 
     box-shadow: var(--shadow-sm);
 
     transition:
-      background-color 0.35s ease,
-      border-color 0.35s ease,
+      border-color 0.3s ease,
       box-shadow 0.3s ease,
-      transform 0.3s ease;
+      transform 0.3s ease,
+      background-color 0.3s ease;
   }
 
   .glass-card:hover {
     transform: translateY(-3px);
+    border-color: rgb(255 255 255 / 0.15);
     box-shadow: var(--shadow-md);
   }
 
-
-  /* ---------------------------------------------------------
-     OLD GRADIENT TEXT -> NORMAL TEXT
-     --------------------------------------------------------- */
+  /* =======================================================
+     NO BLUE GRADIENT
+     ======================================================= */
 
   .gradient-text {
     background: none !important;
@@ -177,10 +163,9 @@
     color: hsl(var(--foreground)) !important;
   }
 
-
-  /* ---------------------------------------------------------
-     OLD GRADIENT BORDER -> NEUTRAL BORDER
-     --------------------------------------------------------- */
+  /* =======================================================
+     NEUTRAL GRADIENT BORDER
+     ======================================================= */
 
   .gradient-border {
     position: relative;
@@ -193,101 +178,14 @@
 
     border-radius: inherit;
 
-    border: 1px solid hsl(var(--foreground) / 0.08);
+    border: 1px solid rgb(255 255 255 / 0.08);
 
     pointer-events: none;
   }
 
-
-  /* =========================================================
-     LIGHT MODE FIXES
-     ========================================================= */
-
-  html:not(.dark) .text-white {
-    color: rgb(17 24 39) !important;
-  }
-
-  html:not(.dark) .text-gray-100 {
-    color: rgb(17 24 39) !important;
-  }
-
-  html:not(.dark) .text-gray-200 {
-    color: rgb(31 41 55) !important;
-  }
-
-  html:not(.dark) .text-gray-300 {
-    color: rgb(55 65 81) !important;
-  }
-
-  html:not(.dark) .text-gray-400 {
-    color: rgb(75 85 99) !important;
-  }
-
-  html:not(.dark) .text-gray-500 {
-    color: rgb(100 116 139) !important;
-  }
-
-  html:not(.dark) .text-gray-600 {
-    color: rgb(107 114 128) !important;
-  }
-
-
-  /* opacity text fixes */
-
-  html:not(.dark) .text-gray-400\/80 {
-    color: rgb(75 85 99 / 0.9) !important;
-  }
-
-  html:not(.dark) .text-gray-400\/70 {
-    color: rgb(75 85 99 / 0.85) !important;
-  }
-
-  html:not(.dark) .text-gray-500\/80 {
-    color: rgb(100 116 139 / 0.9) !important;
-  }
-
-
-  /* ---------------------------------------------------------
-     LIGHT BACKGROUNDS
-     --------------------------------------------------------- */
-
-  html:not(.dark) .bg-white\/5 {
-    background-color: rgb(15 23 42 / 0.035) !important;
-  }
-
-  html:not(.dark) .bg-white\/10 {
-    background-color: rgb(15 23 42 / 0.06) !important;
-  }
-
-  html:not(.dark) .bg-black\/20 {
-    background-color: rgb(15 23 42 / 0.035) !important;
-  }
-
-  html:not(.dark) .bg-black\/30 {
-    background-color: rgb(15 23 42 / 0.05) !important;
-  }
-
-
-  /* ---------------------------------------------------------
-     LIGHT BORDERS
-     --------------------------------------------------------- */
-
-  html:not(.dark) .border-white\/5 {
-    border-color: rgb(15 23 42 / 0.08) !important;
-  }
-
-  html:not(.dark) .border-white\/10 {
-    border-color: rgb(15 23 42 / 0.12) !important;
-  }
-
-  html:not(.dark) .border-white\/20 {
-    border-color: rgb(15 23 42 / 0.16) !important;
-  }
-
-
-  /* =========================================================
-     REMOVE BLUE / CYAN COLORS
-     ========================================================= */
+  /* =======================================================
+     REMOVE ALL CYAN / BLUE
+     ======================================================= */
 
   .text-cyan-300,
   .text-cyan-400,
@@ -295,22 +193,16 @@
   .text-blue-300,
   .text-blue-400,
   .text-blue-500 {
-    color: hsl(var(--foreground)) !important;
+    color: rgb(229 231 235) !important;
   }
-
-
-  /* CYAN BACKGROUNDS */
 
   .bg-cyan-400,
   .bg-cyan-500,
   .bg-blue-400,
   .bg-blue-500 {
-    background: hsl(var(--foreground)) !important;
-    color: hsl(var(--background)) !important;
+    background: rgb(245 245 245) !important;
+    color: rgb(10 10 10) !important;
   }
-
-
-  /* TRANSPARENT CYAN BACKGROUNDS */
 
   .bg-cyan-400\/10,
   .bg-cyan-500\/10,
@@ -318,41 +210,71 @@
   .bg-blue-400\/10,
   .bg-blue-500\/10,
   .bg-blue-500\/20 {
-    background: hsl(var(--foreground) / 0.07) !important;
+    background: rgb(255 255 255 / 0.07) !important;
   }
-
-
-  /* CYAN / BLUE BORDERS */
 
   .border-cyan-400\/20,
   .border-cyan-400\/30,
   .border-cyan-500\/20,
   .border-cyan-500\/30,
   .border-blue-400\/20,
+  .border-blue-400\/30,
   .border-blue-500\/20,
   .border-blue-500\/30 {
-    border-color: hsl(var(--foreground) / 0.16) !important;
+    border-color: rgb(255 255 255 / 0.15) !important;
   }
-
-
-  /* HOVER CYAN */
 
   .hover\:text-cyan-300:hover,
   .hover\:text-cyan-400:hover,
-  .hover\:text-blue-400:hover {
-    color: hsl(var(--foreground)) !important;
+  .hover\:text-cyan-500:hover,
+  .hover\:text-blue-300:hover,
+  .hover\:text-blue-400:hover,
+  .hover\:text-blue-500:hover {
+    color: white !important;
   }
 
   .hover\:border-cyan-500\/20:hover,
   .hover\:border-cyan-500\/30:hover,
+  .hover\:border-blue-500\/20:hover,
   .hover\:border-blue-500\/30:hover {
-    border-color: hsl(var(--foreground) / 0.25) !important;
+    border-color: rgb(255 255 255 / 0.25) !important;
   }
 
+  /* =======================================================
+     TEXT
+     ======================================================= */
 
-  /* =========================================================
-     SECTION ANIMATIONS
-     ========================================================= */
+  .text-white {
+    color: rgb(245 245 245);
+  }
+
+  .text-gray-100 {
+    color: rgb(243 244 246);
+  }
+
+  .text-gray-200 {
+    color: rgb(229 231 235);
+  }
+
+  .text-gray-300 {
+    color: rgb(209 213 219);
+  }
+
+  .text-gray-400 {
+    color: rgb(156 163 175);
+  }
+
+  .text-gray-500 {
+    color: rgb(107 114 128);
+  }
+
+  .text-gray-600 {
+    color: rgb(75 85 99);
+  }
+
+  /* =======================================================
+     SECTION ENTRANCE ANIMATION
+     ======================================================= */
 
   .animate-fade-up {
     opacity: 0;
@@ -368,13 +290,11 @@
     transform: translateY(0);
   }
 
-
-  /* =========================================================
+  /* =======================================================
      ACCESSIBILITY
-     ========================================================= */
+     ======================================================= */
 
   @media (prefers-reduced-motion: reduce) {
-
     html {
       scroll-behavior: auto;
     }
