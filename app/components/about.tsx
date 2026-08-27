@@ -1,58 +1,47 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import SectionWrapper from './section-wrapper'
+import { useEffect, useRef, useState } from 'react'
 
 type Language = 'en' | 'tr'
 
 const content = {
   en: {
-    heading: 'About Me',
-
-    paragraph1: (
-      <>
-        Hi, I&apos;m{' '}
-        <strong className="text-white">
-          Muhammed Üveys Arık
-        </strong>{' '}
-        — a Computer Engineering student at Bilecik Şeyh Edebali University
-        with a strong curiosity for technology and how different areas of
-        computer engineering work together.
-      </>
-    ),
-
+    label: 'ABOUT',
+    heading: 'Building, learning,',
+    headingAccent: 'and exploring.',
+    intro:
+      "I'm Muhammed Üveys Arık, a Computer Engineering student at Bilecik Şeyh Edebali University.",
+    paragraph1:
+      "I'm currently exploring Data, Artificial Intelligence, DevOps, Cloud Computing, and Cybersecurity while strengthening my foundations in programming, algorithms, and software engineering.",
     paragraph2:
-      "I'm currently exploring and developing my skills across Data, Artificial Intelligence, DevOps, Cloud Computing, and Cybersecurity while continuing to strengthen my foundations in programming, algorithms, and software engineering.",
-
-    paragraph3:
-      'I believe in learning by building. I actively work on hands-on projects, experiment with different technologies, and continuously improve my technical skills. My goal is to gain experience across multiple areas of computer engineering, understand how these technologies connect, and gradually develop deeper expertise through real-world projects.',
+      'I believe the best way to understand technology is to build with it. I work on hands-on projects, experiment with different tools, and turn what I learn into real applications.',
+    philosophy: 'LEARNING PHILOSOPHY',
+    philosophyText: 'Learn. Build. Improve. Repeat.',
+    focus: 'CURRENT FOCUS',
+    focusItems: ['DevOps', 'Cloud', 'Artificial Intelligence', 'Data'],
   },
 
   tr: {
-    heading: 'Hakkımda',
-
-    paragraph1: (
-      <>
-        Merhaba, ben{' '}
-        <strong className="text-white">
-          Muhammed Üveys Arık
-        </strong>
-        . Bilecik Şeyh Edebali Üniversitesi&apos;nde Bilgisayar Mühendisliği
-        öğrencisiyim. Teknolojiye ve bilgisayar mühendisliğinin farklı
-        alanlarının birbiriyle nasıl bağlantılı olduğuna büyük ilgi duyuyorum.
-      </>
-    ),
-
+    label: 'HAKKIMDA',
+    heading: 'Üretiyor, öğreniyor',
+    headingAccent: 've keşfediyorum.',
+    intro:
+      "Bilecik Şeyh Edebali Üniversitesi'nde Bilgisayar Mühendisliği öğrencisiyim.",
+    paragraph1:
+      'Programlama, algoritmalar ve yazılım mühendisliği temellerimi güçlendirirken Veri, Yapay Zekâ, DevOps, Bulut Bilişim ve Siber Güvenlik alanlarını keşfediyorum.',
     paragraph2:
-      'Programlama, algoritmalar ve yazılım mühendisliği temellerimi güçlendirmeye devam ederken Veri, Yapay Zekâ, DevOps, Bulut Bilişim ve Siber Güvenlik alanlarını keşfediyor ve bu alanlarda kendimi geliştiriyorum.',
-
-    paragraph3:
-      'Yaparak öğrenmenin en etkili yöntemlerden biri olduğuna inanıyorum. Uygulamalı projeler geliştiriyor, farklı teknolojileri deneyimliyor ve teknik becerilerimi sürekli geliştirmeye çalışıyorum. Amacım bilgisayar mühendisliğinin farklı alanlarında deneyim kazanmak, bu teknolojilerin birbirleriyle nasıl bağlantılı olduğunu anlamak ve gerçek projeler üzerinde çalışarak zamanla daha derin bir uzmanlık geliştirmek.',
+      'Teknolojiyi anlamanın en iyi yollarından birinin onu kullanarak üretmek olduğuna inanıyorum. Uygulamalı projeler geliştiriyor, farklı araçları deniyor ve öğrendiklerimi gerçek uygulamalara dönüştürüyorum.',
+    philosophy: 'ÖĞRENME YAKLAŞIMIM',
+    philosophyText: 'Öğren. Üret. Geliştir. Tekrarla.',
+    focus: 'ŞU ANKİ ODAĞIM',
+    focusItems: ['DevOps', 'Bulut', 'Yapay Zekâ', 'Veri'],
   },
 }
 
 export default function About() {
   const [language, setLanguage] = useState<Language>('en')
+  const [visible, setVisible] = useState(false)
+  const sectionRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language')
@@ -68,59 +57,177 @@ export default function About() {
 
     window.addEventListener('languageChange', handleLanguageChange)
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      {
+        threshold: 0.2,
+      }
+    )
+
+    if (sectionRef.current) {
+      observer.observe(sectionRef.current)
+    }
+
     return () => {
       window.removeEventListener('languageChange', handleLanguageChange)
+      observer.disconnect()
     }
   }, [])
 
   const text = content[language]
 
   return (
-    <SectionWrapper id="about" className="py-24 sm:py-32">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section
+      ref={sectionRef}
+      id="about"
+      className="relative overflow-hidden border-t border-white/10 bg-[hsl(var(--background))]"
+    >
+      <div className="mx-auto max-w-[1400px] px-6 py-28 sm:px-10 sm:py-36 lg:px-14 lg:py-44">
 
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-8">
-          <span className="gradient-text">
-            {text.heading}
+        {/* Small section label */}
+        <div
+          className={`mb-10 flex items-center gap-4 transition-all duration-700 ${
+            visible
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-6 opacity-0'
+          }`}
+        >
+          <span className="font-mono text-[11px] font-medium tracking-[0.28em] text-gray-500">
+            01
           </span>
-        </h2>
 
-        <div className="glass-card rounded-xl p-8 sm:p-10">
-          <div className="flex items-start gap-4">
+          <div className="h-px w-10 bg-gray-600/50" />
 
-            <div className="hidden sm:block mt-1">
-              <svg
-                width="24"
-                height="24"
-                viewBox="0 0 24 24"
-                fill="none"
-                stroke="#06b6d4"
-                strokeWidth="2"
-                strokeLinecap="round"
-                strokeLinejoin="round"
-              >
-                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2" />
-                <circle cx="12" cy="7" r="4" />
-              </svg>
-            </div>
+          <span className="font-mono text-[11px] font-medium tracking-[0.28em] text-gray-500">
+            {text.label}
+          </span>
+        </div>
 
-            <div>
-              <p className="text-gray-300 text-base sm:text-lg leading-relaxed mb-4">
-                {text.paragraph1}
-              </p>
+        {/* Main heading */}
+        <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-24">
 
-              <p className="text-gray-400 text-base leading-relaxed mb-4">
-                {text.paragraph2}
-              </p>
+          <div>
+            <h2
+              className={`max-w-[720px] text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-white transition-all duration-1000 sm:text-6xl lg:text-7xl xl:text-[5.5rem] ${
+                visible
+                  ? 'translate-y-0 opacity-100 blur-0'
+                  : 'translate-y-10 opacity-0 blur-sm'
+              }`}
+            >
+              {text.heading}
+              <span className="mt-2 block text-gray-500">
+                {text.headingAccent}
+              </span>
+            </h2>
+          </div>
 
-              <p className="text-gray-400 text-base leading-relaxed">
-                {text.paragraph3}
-              </p>
-            </div>
-
+          {/* Intro */}
+          <div
+            className={`flex items-end transition-all delay-200 duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
+            }`}
+          >
+            <p className="max-w-xl text-xl leading-relaxed text-gray-300 sm:text-2xl">
+              {text.intro}
+            </p>
           </div>
         </div>
+
+        {/* Divider */}
+        <div
+          className={`my-16 h-px origin-left bg-white/10 transition-transform delay-300 duration-1000 sm:my-20 ${
+            visible ? 'scale-x-100' : 'scale-x-0'
+          }`}
+        />
+
+        {/* Content */}
+        <div className="grid gap-16 lg:grid-cols-[1.15fr_0.85fr] lg:gap-28">
+
+          {/* Text */}
+          <div className="space-y-8">
+            <p
+              className={`max-w-3xl text-lg leading-[1.8] text-gray-400 transition-all delay-300 duration-1000 sm:text-xl ${
+                visible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
+              {text.paragraph1}
+            </p>
+
+            <p
+              className={`max-w-3xl text-lg leading-[1.8] text-gray-400 transition-all delay-500 duration-1000 sm:text-xl ${
+                visible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-8 opacity-0'
+              }`}
+            >
+              {text.paragraph2}
+            </p>
+          </div>
+
+          {/* Right information */}
+          <div
+            className={`transition-all delay-500 duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-8 opacity-0'
+            }`}
+          >
+            {/* Philosophy */}
+            <div className="border-t border-white/10 py-7">
+              <p className="mb-4 font-mono text-[10px] tracking-[0.25em] text-gray-500">
+                {text.philosophy}
+              </p>
+
+              <p className="text-xl font-medium tracking-tight text-gray-200 sm:text-2xl">
+                {text.philosophyText}
+              </p>
+            </div>
+
+            {/* Focus */}
+            <div className="border-y border-white/10 py-7">
+              <p className="mb-5 font-mono text-[10px] tracking-[0.25em] text-gray-500">
+                {text.focus}
+              </p>
+
+              <div className="flex flex-wrap gap-x-6 gap-y-3">
+                {text.focusItems.map((item, index) => (
+                  <div
+                    key={item}
+                    className="flex items-center gap-2 text-sm font-medium text-gray-300 sm:text-base"
+                  >
+                    <span className="text-[10px] text-gray-600">
+                      0{index + 1}
+                    </span>
+
+                    <span>{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
       </div>
-    </SectionWrapper>
+
+      {/* Very subtle decoration */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 top-20 h-[420px] w-[420px] rounded-full border border-white/[0.035]"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-12 top-40 h-[260px] w-[260px] rounded-full border border-white/[0.025]"
+      />
+    </section>
   )
 }
