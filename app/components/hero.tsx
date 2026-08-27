@@ -68,21 +68,65 @@ export default function Hero() {
   return (
     <section
       id="hero"
-      className="relative min-h-screen overflow-hidden bg-[#08090a] text-white"
+      className="
+        relative min-h-screen overflow-hidden
+        bg-[#f7f7f5] text-zinc-950
+        transition-colors duration-500
+        dark:bg-[#08090a] dark:text-white
+      "
     >
       {/* BACKGROUND */}
       <div className="pointer-events-none absolute inset-0">
-        <div className="absolute -left-40 top-0 h-[600px] w-[600px] rounded-full bg-white/[0.035] blur-[100px]" />
+        <div
+          className="
+            absolute -left-40 top-0
+            h-[600px] w-[600px]
+            rounded-full
+            bg-black/[0.025]
+            blur-[100px]
+            dark:bg-white/[0.035]
+          "
+        />
 
-        <div className="absolute right-[5%] top-[10%] h-[700px] w-[700px] rounded-full border border-white/[0.06]" />
+        <div
+          className="
+            absolute right-[5%] top-[10%]
+            h-[700px] w-[700px]
+            rounded-full
+            border border-black/[0.05]
+            dark:border-white/[0.06]
+          "
+        />
 
-        <div className="absolute bottom-0 left-0 right-0 h-40 bg-gradient-to-t from-black/20 to-transparent" />
+        <div
+          className="
+            absolute bottom-0 left-0 right-0 h-40
+            bg-gradient-to-t
+            from-black/[0.025]
+            to-transparent
+            dark:from-black/20
+          "
+        />
       </div>
 
-      <div className="relative z-10 mx-auto flex min-h-screen max-w-[1450px] items-center px-6 pb-16 pt-32 sm:px-10 lg:px-14">
-        <div className="grid w-full items-center gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-
-          {/* LEFT SIDE */}
+      <div
+        className="
+          relative z-10
+          mx-auto flex min-h-screen max-w-[1450px]
+          items-center
+          px-6 pb-16 pt-32
+          sm:px-10
+          lg:px-14
+        "
+      >
+        <div
+          className="
+            grid w-full items-center gap-14
+            lg:grid-cols-[1.15fr_0.85fr]
+            lg:gap-16
+          "
+        >
+          {/* LEFT */}
           <div
             className={`transition-all duration-1000 ${
               visible
@@ -91,43 +135,119 @@ export default function Hero() {
             }`}
           >
             {/* BADGE */}
-            <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-gray-300 backdrop-blur-md">
-              <span className="h-2 w-2 rounded-full bg-white" />
+            <div
+              className="
+                mb-8 inline-flex items-center gap-3
+                rounded-full
+                border border-black/10
+                bg-black/[0.025]
+                px-5 py-2.5
+                text-sm font-medium
+                text-zinc-600
+                backdrop-blur-md
+                dark:border-white/15
+                dark:bg-white/[0.04]
+                dark:text-gray-300
+              "
+            >
+              <span
+                className="
+                  h-2 w-2 rounded-full
+                  bg-zinc-900
+                  dark:bg-white
+                "
+              />
+
               {text.badge}
             </div>
 
-            {/* NAME - FIXED */}
+            {/* NAME */}
             <div className="mb-8">
-              <h1 className="font-semibold tracking-[-0.055em] text-white">
-                <span className="block text-[clamp(4rem,7vw,8rem)] leading-none">
+              <h1
+                className="
+                  font-semibold
+                  tracking-[-0.055em]
+                  text-zinc-950
+                  dark:text-white
+                "
+              >
+                <span
+                  className="
+                    block
+                    text-[clamp(3.6rem,7vw,8rem)]
+                    leading-[0.88]
+                  "
+                >
                   Muhammed
                 </span>
 
-                <span className="mt-5 block text-[clamp(4rem,7vw,8rem)] leading-none">
+                <span
+                  className="
+                    mt-7 block
+                    text-[clamp(3.6rem,7vw,8rem)]
+                    leading-[0.88]
+                  "
+                >
                   Üveys Arık
                 </span>
               </h1>
             </div>
 
             {/* TITLE */}
-            <p className="mb-7 text-xl font-medium text-gray-400 sm:text-2xl">
+            <p
+              className="
+                mb-7
+                text-xl font-medium
+                text-zinc-600
+                sm:text-2xl
+                dark:text-gray-400
+              "
+            >
               {text.title}
             </p>
 
             {/* DESCRIPTION */}
-            <p className="mb-10 max-w-[720px] text-base leading-[1.75] text-gray-400 sm:text-lg">
+            <p
+              className="
+                mb-10
+                max-w-[720px]
+                text-base
+                leading-[1.75]
+                text-zinc-600
+                sm:text-lg
+                dark:text-gray-400
+              "
+            >
               {text.description}
             </p>
 
             {/* BUTTONS */}
             <div className="flex flex-wrap items-center gap-3">
-
               {/* GITHUB */}
               <a
                 href="https://github.com/muhammeduveysarik"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 rounded-xl border border-white/15 bg-white/[0.025] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.07]"
+                className="
+                  group inline-flex items-center gap-3
+                  rounded-xl
+                  border border-black/10
+                  bg-white
+                  px-6 py-3.5
+                  text-sm font-semibold
+                  text-zinc-900
+                  shadow-sm
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:border-black/20
+                  hover:shadow-md
+                  dark:border-white/15
+                  dark:bg-white/[0.025]
+                  dark:text-white
+                  dark:shadow-none
+                  dark:hover:border-white/30
+                  dark:hover:bg-white/[0.07]
+                "
               >
                 <svg
                   width="20"
@@ -140,7 +260,13 @@ export default function Hero() {
 
                 GitHub
 
-                <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                <span
+                  className="
+                    transition-transform duration-300
+                    group-hover:translate-x-1
+                    group-hover:-translate-y-1
+                  "
+                >
                   ↗
                 </span>
               </a>
@@ -150,7 +276,26 @@ export default function Hero() {
                 href="https://www.linkedin.com/in/muveys/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="group inline-flex items-center gap-3 rounded-xl border border-white/15 bg-white/[0.025] px-6 py-3.5 text-sm font-semibold text-white transition-all duration-300 hover:-translate-y-1 hover:border-white/30 hover:bg-white/[0.07]"
+                className="
+                  group inline-flex items-center gap-3
+                  rounded-xl
+                  border border-black/10
+                  bg-white
+                  px-6 py-3.5
+                  text-sm font-semibold
+                  text-zinc-900
+                  shadow-sm
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:border-black/20
+                  hover:shadow-md
+                  dark:border-white/15
+                  dark:bg-white/[0.025]
+                  dark:text-white
+                  dark:shadow-none
+                  dark:hover:border-white/30
+                  dark:hover:bg-white/[0.07]
+                "
               >
                 <svg
                   width="20"
@@ -163,7 +308,13 @@ export default function Hero() {
 
                 LinkedIn
 
-                <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                <span
+                  className="
+                    transition-transform duration-300
+                    group-hover:translate-x-1
+                    group-hover:-translate-y-1
+                  "
+                >
                   ↗
                 </span>
               </a>
@@ -173,7 +324,20 @@ export default function Hero() {
                 href="/Muhammed_Uveys_Arik_CV.pdf"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-3 rounded-xl bg-white px-6 py-3.5 text-sm font-semibold text-black transition-all duration-300 hover:-translate-y-1 hover:bg-gray-200"
+                className="
+                  inline-flex items-center gap-3
+                  rounded-xl
+                  bg-zinc-950
+                  px-6 py-3.5
+                  text-sm font-semibold
+                  text-white
+                  transition-all duration-300
+                  hover:-translate-y-1
+                  hover:bg-zinc-800
+                  dark:bg-white
+                  dark:text-black
+                  dark:hover:bg-gray-200
+                "
               >
                 <svg
                   width="20"
@@ -192,11 +356,10 @@ export default function Hero() {
 
                 {text.cv}
               </a>
-
             </div>
           </div>
 
-          {/* RIGHT SIDE */}
+          {/* RIGHT */}
           <div
             className={`relative mx-auto w-full max-w-[550px] transition-all delay-200 duration-1000 lg:mx-0 ${
               visible
@@ -204,8 +367,20 @@ export default function Hero() {
                 : 'translate-x-10 opacity-0'
             }`}
           >
-            {/* PROFILE IMAGE */}
-            <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-white/10 bg-[#111] shadow-2xl">
+            {/* PHOTO */}
+            <div
+              className="
+                relative
+                aspect-[4/5]
+                overflow-hidden
+                rounded-[32px]
+                border border-black/10
+                bg-zinc-200
+                shadow-2xl
+                dark:border-white/10
+                dark:bg-[#111]
+              "
+            >
               <Image
                 src="/profile.jpg"
                 alt="Muhammed Üveys Arık"
@@ -215,47 +390,121 @@ export default function Hero() {
                 className="object-cover"
               />
 
-              <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+              <div
+                className="
+                  absolute inset-0
+                  bg-gradient-to-t
+                  from-black/20
+                  via-transparent
+                  to-transparent
+                  dark:from-black/30
+                "
+              />
             </div>
 
             {/* INFORMATION CARD */}
-            <div className="relative mx-5 -mt-20 rounded-2xl border border-white/10 bg-[#121314]/90 p-6 shadow-2xl backdrop-blur-xl sm:mx-8">
+            <div
+              className="
+                relative
+                mx-5 -mt-20
+                rounded-2xl
+                border border-black/10
+                bg-white/95
+                p-6
+                shadow-2xl
+                backdrop-blur-xl
+                sm:mx-8
+                dark:border-white/10
+                dark:bg-[#121314]/95
+              "
+            >
               <div className="grid gap-6 sm:grid-cols-3">
-
                 <div>
-                  <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">
+                  <p
+                    className="
+                      mb-2
+                      text-[11px]
+                      font-medium
+                      uppercase
+                      tracking-[0.2em]
+                      text-zinc-500
+                      dark:text-gray-500
+                    "
+                  >
                     {text.student}
                   </p>
 
-                  <p className="text-sm font-semibold leading-relaxed text-white">
+                  <p
+                    className="
+                      text-sm
+                      font-semibold
+                      leading-relaxed
+                      text-zinc-900
+                      dark:text-white
+                    "
+                  >
                     {text.university}
                   </p>
                 </div>
 
                 <div>
-                  <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">
+                  <p
+                    className="
+                      mb-2
+                      text-[11px]
+                      font-medium
+                      uppercase
+                      tracking-[0.2em]
+                      text-zinc-500
+                      dark:text-gray-500
+                    "
+                  >
                     {text.focus}
                   </p>
 
-                  <p className="text-sm font-semibold leading-relaxed text-white">
+                  <p
+                    className="
+                      text-sm
+                      font-semibold
+                      leading-relaxed
+                      text-zinc-900
+                      dark:text-white
+                    "
+                  >
                     {text.focusText}
                   </p>
                 </div>
 
                 <div>
-                  <p className="mb-2 text-[11px] font-medium uppercase tracking-[0.2em] text-gray-500">
+                  <p
+                    className="
+                      mb-2
+                      text-[11px]
+                      font-medium
+                      uppercase
+                      tracking-[0.2em]
+                      text-zinc-500
+                      dark:text-gray-500
+                    "
+                  >
                     {text.mindset}
                   </p>
 
-                  <p className="text-sm font-semibold leading-relaxed text-white">
+                  <p
+                    className="
+                      text-sm
+                      font-semibold
+                      leading-relaxed
+                      text-zinc-900
+                      dark:text-white
+                    "
+                  >
                     {text.mindsetText}
                   </p>
                 </div>
-
               </div>
             </div>
           </div>
-
         </div>
       </div>
     </section>
