@@ -43,11 +43,11 @@ export const metadata: Metadata = {
     },
   ],
 
+  creator: 'Muhammed Üveys Arık',
+
   verification: {
     google: 'HQ6AgLCPQoIjbmFNx3ozI2OO9B8U-tGlhbqggasECcI',
   },
-
-  creator: 'Muhammed Üveys Arık',
 
   openGraph: {
     title: 'Muhammed Üveys Arık | Computer Engineering Student',
@@ -75,7 +75,9 @@ export const metadata: Metadata = {
 
   twitter: {
     card: 'summary_large_image',
+
     title: 'Muhammed Üveys Arık | Computer Engineering Student',
+
     description:
       'Personal portfolio of Muhammed Üveys Arık — Computer Engineering student.',
   },
@@ -97,6 +99,7 @@ export default function RootLayout({
 }) {
   const jsonLd = {
     '@context': 'https://schema.org',
+
     '@type': 'Person',
 
     name: 'Muhammed Üveys Arık',
@@ -116,39 +119,14 @@ export default function RootLayout({
     ],
   }
 
-  const themeScript = `
-    (function () {
-      try {
-        var savedTheme = localStorage.getItem('theme');
-
-        var theme =
-          savedTheme === 'light' || savedTheme === 'dark'
-            ? savedTheme
-            : 'dark';
-
-        if (theme === 'dark') {
-          document.documentElement.classList.add('dark');
-        } else {
-          document.documentElement.classList.remove('dark');
-        }
-
-        document.documentElement.style.colorScheme = theme;
-      } catch (e) {
-        document.documentElement.classList.add('dark');
-        document.documentElement.style.colorScheme = 'dark';
-      }
-    })();
-  `
-
   return (
-    <html lang="en" suppressHydrationWarning>
+    <html
+      lang="en"
+      className="dark"
+      style={{ colorScheme: 'dark' }}
+      suppressHydrationWarning
+    >
       <head>
-        <script
-          dangerouslySetInnerHTML={{
-            __html: themeScript,
-          }}
-        />
-
         <meta
           name="google-site-verification"
           content="qG7rhwqBH_cJnVTj-OBMzhbfJ9_88LxD57-By64STvE"
