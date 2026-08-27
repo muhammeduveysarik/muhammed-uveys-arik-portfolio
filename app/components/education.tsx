@@ -7,32 +7,34 @@ type Language = 'en' | 'tr'
 const content = {
   en: {
     label: 'EDUCATION',
-    heading: 'Academic',
-    headingAccent: 'foundation.',
+    title1: 'Academic',
+    title2: 'foundation.',
     university: 'Bilecik Şeyh Edebali University',
-    degree: 'Bachelor of Science',
     department: 'Computer Engineering',
+    degree: 'Bachelor of Science',
     status: 'Currently pursuing',
     location: 'Bilecik, Türkiye',
     description:
-      'Building a strong foundation in computer engineering while expanding my knowledge through hands-on projects and independent learning.',
+      'Building a strong foundation in computer engineering while expanding my technical knowledge through hands-on projects, independent learning, and real-world experimentation.',
     programLabel: 'PROGRAM',
+    degreeLabel: 'DEGREE',
     statusLabel: 'STATUS',
     locationLabel: 'LOCATION',
   },
 
   tr: {
     label: 'EĞİTİM',
-    heading: 'Akademik',
-    headingAccent: 'temelim.',
+    title1: 'Akademik',
+    title2: 'temelim.',
     university: 'Bilecik Şeyh Edebali Üniversitesi',
-    degree: 'Lisans',
     department: 'Bilgisayar Mühendisliği',
+    degree: 'Lisans',
     status: 'Öğrenim devam ediyor',
     location: 'Bilecik, Türkiye',
     description:
-      'Bilgisayar mühendisliği alanında güçlü bir akademik temel oluştururken uygulamalı projeler ve bireysel çalışmalarla teknik bilgimi geliştiriyorum.',
+      'Bilgisayar mühendisliği alanında güçlü bir temel oluştururken uygulamalı projeler, bireysel öğrenme ve gerçek dünya çalışmalarıyla teknik bilgimi geliştiriyorum.',
     programLabel: 'PROGRAM',
+    degreeLabel: 'DERECE',
     statusLabel: 'DURUM',
     locationLabel: 'KONUM',
   },
@@ -66,12 +68,14 @@ export default function Education() {
         }
       },
       {
-        threshold: 0.2,
+        threshold: 0.15,
       }
     )
 
-    if (sectionRef.current) {
-      observer.observe(sectionRef.current)
+    const currentSection = sectionRef.current
+
+    if (currentSection) {
+      observer.observe(currentSection)
     }
 
     return () => {
@@ -90,77 +94,78 @@ export default function Education() {
     <section
       ref={sectionRef}
       id="education"
-      className="relative overflow-hidden border-t border-white/10 bg-[hsl(var(--background))]"
+      className="relative overflow-hidden border-t border-white/[0.08] bg-[hsl(var(--background))]"
     >
       <div className="mx-auto max-w-[1400px] px-6 py-28 sm:px-10 sm:py-36 lg:px-14 lg:py-44">
 
-        {/* SECTION LABEL */}
+        {/* TOP LABEL */}
         <div
-          className={`mb-12 flex items-center gap-4 transition-all duration-700 ${
+          className={`mb-14 flex items-center gap-4 transition-all duration-700 ${
             visible
               ? 'translate-y-0 opacity-100'
-              : 'translate-y-6 opacity-0'
+              : 'translate-y-5 opacity-0'
           }`}
         >
-          <span className="font-mono text-[11px] tracking-[0.28em] text-gray-500">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-gray-600">
             02
           </span>
 
-          <div className="h-px w-10 bg-gray-600/50" />
+          <span className="h-px w-10 bg-white/15" />
 
-          <span className="font-mono text-[11px] tracking-[0.28em] text-gray-500">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-gray-500">
             {text.label}
           </span>
         </div>
 
-        {/* HEADING */}
-        <div className="grid gap-12 lg:grid-cols-[0.9fr_1.1fr] lg:gap-24">
+        {/* TOP AREA */}
+        <div className="grid items-end gap-14 lg:grid-cols-2 lg:gap-24">
 
-          <div>
-            <h2
-              className={`text-5xl font-semibold leading-[0.98] tracking-[-0.045em] text-white transition-all duration-1000 sm:text-6xl lg:text-7xl ${
-                visible
-                  ? 'translate-y-0 opacity-100 blur-0'
-                  : 'translate-y-10 opacity-0 blur-sm'
-              }`}
-            >
-              {text.heading}
+          {/* BIG TITLE */}
+          <div
+            className={`transition-all duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
+            }`}
+          >
+            <h2 className="text-[clamp(3.5rem,7vw,7.5rem)] font-semibold leading-[0.88] tracking-[-0.06em] text-white">
+              {text.title1}
 
-              <span className="mt-2 block text-gray-500">
-                {text.headingAccent}
+              <span className="block text-white/30">
+                {text.title2}
               </span>
             </h2>
           </div>
 
           {/* UNIVERSITY */}
           <div
-            className={`flex items-end transition-all delay-200 duration-1000 ${
+            className={`pb-2 transition-all delay-150 duration-1000 ${
               visible
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-10 opacity-0'
             }`}
           >
-            <div>
-              <p className="mb-3 font-mono text-[10px] tracking-[0.25em] text-gray-500">
-                UNIVERSITY
-              </p>
+            <p className="mb-5 font-mono text-[10px] tracking-[0.3em] text-gray-600">
+              UNIVERSITY
+            </p>
 
-              <h3 className="max-w-2xl text-2xl font-medium leading-tight tracking-tight text-gray-200 sm:text-3xl lg:text-4xl">
-                {text.university}
-              </h3>
-            </div>
+            <h3 className="max-w-xl text-3xl font-medium leading-[1.1] tracking-[-0.035em] text-white sm:text-4xl lg:text-5xl">
+              {text.university}
+            </h3>
           </div>
         </div>
 
-        {/* DIVIDER */}
-        <div
-          className={`my-16 h-px origin-left bg-white/10 transition-transform delay-300 duration-1000 sm:my-20 ${
-            visible ? 'scale-x-100' : 'scale-x-0'
-          }`}
-        />
+        {/* LONG DIVIDER */}
+        <div className="my-16 overflow-hidden sm:my-20">
+          <div
+            className={`h-px origin-left bg-white/10 transition-transform delay-200 duration-1000 ${
+              visible ? 'scale-x-100' : 'scale-x-0'
+            }`}
+          />
+        </div>
 
-        {/* LOWER CONTENT */}
-        <div className="grid gap-14 lg:grid-cols-[1.05fr_0.95fr] lg:gap-28">
+        {/* BOTTOM AREA */}
+        <div className="grid gap-16 lg:grid-cols-[1fr_1.05fr] lg:gap-28">
 
           {/* DESCRIPTION */}
           <div
@@ -170,14 +175,14 @@ export default function Education() {
                 : 'translate-y-8 opacity-0'
             }`}
           >
-            <p className="max-w-2xl text-lg leading-[1.8] text-gray-400 sm:text-xl">
+            <p className="max-w-xl text-lg leading-[1.8] text-white/45 sm:text-xl">
               {text.description}
             </p>
           </div>
 
-          {/* DETAILS */}
+          {/* INFORMATION LIST */}
           <div
-            className={`transition-all delay-500 duration-1000 ${
+            className={`transition-all delay-400 duration-1000 ${
               visible
                 ? 'translate-y-0 opacity-100'
                 : 'translate-y-8 opacity-0'
@@ -185,71 +190,71 @@ export default function Education() {
           >
 
             {/* PROGRAM */}
-            <div className="group border-t border-white/10 py-7">
-              <div className="grid grid-cols-[110px_1fr] gap-6 sm:grid-cols-[140px_1fr]">
+            <div className="grid grid-cols-[100px_1fr] gap-5 border-t border-white/10 py-7 sm:grid-cols-[150px_1fr]">
 
-                <p className="font-mono text-[10px] tracking-[0.22em] text-gray-500">
-                  {text.programLabel}
-                </p>
+              <span className="font-mono text-[9px] tracking-[0.25em] text-white/30">
+                {text.programLabel}
+              </span>
 
-                <div>
-                  <p className="text-lg font-medium text-gray-200">
-                    {text.department}
-                  </p>
+              <span className="text-lg font-medium text-white/85 sm:text-xl">
+                {text.department}
+              </span>
 
-                  <p className="mt-1 text-sm text-gray-500">
-                    {text.degree}
-                  </p>
-                </div>
+            </div>
 
-              </div>
+            {/* DEGREE */}
+            <div className="grid grid-cols-[100px_1fr] gap-5 border-t border-white/10 py-7 sm:grid-cols-[150px_1fr]">
+
+              <span className="font-mono text-[9px] tracking-[0.25em] text-white/30">
+                {text.degreeLabel}
+              </span>
+
+              <span className="text-lg font-medium text-white/70 sm:text-xl">
+                {text.degree}
+              </span>
+
             </div>
 
             {/* STATUS */}
-            <div className="group border-t border-white/10 py-7">
-              <div className="grid grid-cols-[110px_1fr] gap-6 sm:grid-cols-[140px_1fr]">
+            <div className="grid grid-cols-[100px_1fr] gap-5 border-t border-white/10 py-7 sm:grid-cols-[150px_1fr]">
 
-                <p className="font-mono text-[10px] tracking-[0.22em] text-gray-500">
-                  {text.statusLabel}
-                </p>
+              <span className="font-mono text-[9px] tracking-[0.25em] text-white/30">
+                {text.statusLabel}
+              </span>
 
-                <p className="text-lg font-medium text-gray-300">
-                  {text.status}
-                </p>
+              <span className="text-lg font-medium text-white/70 sm:text-xl">
+                {text.status}
+              </span>
 
-              </div>
             </div>
 
             {/* LOCATION */}
-            <div className="group border-y border-white/10 py-7">
-              <div className="grid grid-cols-[110px_1fr] gap-6 sm:grid-cols-[140px_1fr]">
+            <div className="grid grid-cols-[100px_1fr] gap-5 border-y border-white/10 py-7 sm:grid-cols-[150px_1fr]">
 
-                <p className="font-mono text-[10px] tracking-[0.22em] text-gray-500">
-                  {text.locationLabel}
-                </p>
+              <span className="font-mono text-[9px] tracking-[0.25em] text-white/30">
+                {text.locationLabel}
+              </span>
 
-                <p className="text-lg font-medium text-gray-300">
-                  {text.location}
-                </p>
+              <span className="text-lg font-medium text-white/70 sm:text-xl">
+                {text.location}
+              </span>
 
-              </div>
             </div>
 
           </div>
         </div>
       </div>
 
-      {/* SUBTLE BACKGROUND DECORATION */}
+      {/* DECORATIVE CIRCLES */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-48 top-24 h-[500px] w-[500px] rounded-full border border-white/[0.025]"
+        className="pointer-events-none absolute -right-[250px] top-[100px] h-[600px] w-[600px] rounded-full border border-white/[0.025]"
       />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-20 top-52 h-[260px] w-[260px] rounded-full border border-white/[0.02]"
+        className="pointer-events-none absolute -right-[80px] top-[270px] h-[260px] w-[260px] rounded-full border border-white/[0.025]"
       />
-
     </section>
   )
 }
