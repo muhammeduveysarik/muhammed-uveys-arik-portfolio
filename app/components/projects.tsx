@@ -1,52 +1,64 @@
 'use client'
 
-import { useEffect, useState } from 'react'
-import SectionWrapper from './section-wrapper'
+import { useEffect, useRef, useState } from 'react'
 
 type Language = 'en' | 'tr'
 
 const content = {
   en: {
-    heading: 'Projects',
+    label: 'SELECTED PROJECTS',
+    heading: 'Things I’ve',
+    headingAccent: 'built.',
+    intro:
+      'A selection of projects where I turn what I learn into practical applications and experiment with different technologies.',
 
-    devopsType: 'DevOps Project',
+    devopsType: 'DEVOPS',
     devopsDescription:
-      'A Flask-based status monitoring application running inside a Docker container. The project includes service health checks, a Gunicorn production server, Docker Compose, and an automated CI pipeline with GitHub Actions.',
+      'A Flask-based status monitoring application running inside a Docker container. Includes service health checks, Gunicorn, Docker Compose, and an automated CI pipeline with GitHub Actions.',
 
-    kariyerType: 'AI Project',
+    kariyerType: 'ARTIFICIAL INTELLIGENCE',
     kariyerDescription:
-      'An AI-powered resume and job application assistant. It is a web-based artificial intelligence project developed to support users throughout their career and job application processes.',
+      'An AI-powered resume and job application assistant developed to support users throughout their career and job application processes.',
 
-    stajType: 'Web Application',
+    stajType: 'WEB APPLICATION',
     stajDescription:
-      'A web application developed to manage and track internship applications in one place. It includes application creation and editing, status tracking, filtering, dashboard statistics, and a Follow-up Center that analyzes application waiting times.',
+      'A web application for managing and tracking internship applications. Includes application management, status tracking, filtering, dashboard statistics, and a follow-up center.',
 
-    liveSite: 'Live Site ↗',
-    github: 'View on GitHub ↗',
+    liveSite: 'Live Site',
+    github: 'GitHub',
+    stack: 'TECHNOLOGIES',
   },
 
   tr: {
-    heading: 'Projeler',
+    label: 'SEÇİLİ PROJELER',
+    heading: 'Ürettiğim',
+    headingAccent: 'projeler.',
+    intro:
+      'Öğrendiklerimi gerçek uygulamalara dönüştürdüğüm ve farklı teknolojileri deneyimlediğim projelerden bazıları.',
 
-    devopsType: 'DevOps Projesi',
+    devopsType: 'DEVOPS',
     devopsDescription:
-      'Docker container içerisinde çalışan Flask tabanlı durum takip uygulaması. Projede servis sağlık kontrolü, Gunicorn production sunucusu, Docker Compose ve GitHub Actions ile otomatik CI pipeline bulunmaktadır.',
+      'Docker container içerisinde çalışan Flask tabanlı durum takip uygulaması. Servis sağlık kontrolü, Gunicorn, Docker Compose ve GitHub Actions ile otomatik CI pipeline içerir.',
 
-    kariyerType: 'Yapay Zekâ Projesi',
+    kariyerType: 'YAPAY ZEKÂ',
     kariyerDescription:
-      'Yapay zekâ destekli özgeçmiş ve iş başvuru asistanı. Kullanıcıların kariyer süreçlerini desteklemek amacıyla geliştirilen web tabanlı bir yapay zekâ projesidir.',
+      'Kullanıcıların kariyer ve iş başvuru süreçlerini desteklemek amacıyla geliştirilmiş yapay zekâ destekli özgeçmiş ve iş başvuru asistanı.',
 
-    stajType: 'Web Uygulaması',
+    stajType: 'WEB UYGULAMASI',
     stajDescription:
-      'Staj başvurularını tek noktadan yönetmek ve takip etmek için geliştirilmiş web uygulaması. Başvuru ekleme, düzenleme, durum takibi, filtreleme, dashboard istatistikleri ve başvuruların bekleme sürelerini analiz eden Takip Merkezi özelliklerini içerir.',
+      'Staj başvurularını tek noktadan yönetmek ve takip etmek için geliştirilmiş web uygulaması. Başvuru yönetimi, durum takibi, filtreleme, dashboard ve Takip Merkezi özelliklerini içerir.',
 
-    liveSite: 'Canlı Site ↗',
-    github: "GitHub'da Görüntüle ↗",
+    liveSite: 'Canlı Site',
+    github: 'GitHub',
+    stack: 'TEKNOLOJİLER',
   },
 }
 
 export default function Projects() {
   const [language, setLanguage] = useState<Language>('en')
+  const [visible, setVisible] = useState(false)
+
+  const sectionRef = useRef<HTMLElement | null>(null)
 
   useEffect(() => {
     const savedLanguage = localStorage.getItem('language')
@@ -62,195 +74,285 @@ export default function Projects() {
 
     window.addEventListener('languageChange', handleLanguageChange)
 
+    const observer = new IntersectionObserver(
+      ([entry]) => {
+        if (entry.isIntersecting) {
+          setVisible(true)
+          observer.disconnect()
+        }
+      },
+      {
+        threshold: 0.08,
+      }
+    )
+
+    const currentSection = sectionRef.current
+
+    if (currentSection) {
+      observer.observe(currentSection)
+    }
+
     return () => {
-      window.removeEventListener('languageChange', handleLanguageChange)
+      window.removeEventListener(
+        'languageChange',
+        handleLanguageChange
+      )
+
+      observer.disconnect()
     }
   }, [])
 
   const text = content[language]
 
+  const projects = [
+    {
+      number: '01',
+      type: text.devopsType,
+      title: 'DevOps Status Dashboard',
+      description: text.devopsDescription,
+      technologies: [
+        'Docker',
+        'Docker Compose',
+        'Python',
+        'Flask',
+        'Gunicorn',
+        'GitHub Actions',
+        'CI/CD',
+      ],
+      github:
+        'https://github.com/muhammeduveysarik/devops-status-app',
+      live: null,
+    },
+
+    {
+      number: '02',
+      type: text.kariyerType,
+      title: 'KariyerAI',
+      description: text.kariyerDescription,
+      technologies: ['Python', 'AI', 'Flask', 'Vercel'],
+      github:
+        'https://github.com/muhammeduveysarik/kariyerai',
+      live: 'https://kariyerai.vercel.app',
+    },
+
+    {
+      number: '03',
+      type: text.stajType,
+      title: 'StajRadar',
+      description: text.stajDescription,
+      technologies: [
+        'Next.js',
+        'React',
+        'TypeScript',
+        'Tailwind CSS',
+        'Vercel',
+      ],
+      github:
+        'https://github.com/muhammeduveysarik/stajradar',
+      live: 'https://stajradar.vercel.app',
+    },
+  ]
+
   return (
-    <SectionWrapper id="projects" className="py-24 sm:py-32">
-      <div className="max-w-[1200px] mx-auto px-6">
+    <section
+      ref={sectionRef}
+      id="projects"
+      className="relative overflow-hidden border-t border-white/[0.08] bg-[hsl(var(--background))]"
+    >
+      <div className="mx-auto max-w-[1400px] px-6 py-28 sm:px-10 sm:py-36 lg:px-14 lg:py-44">
 
-        <h2 className="text-3xl sm:text-4xl font-bold tracking-tight mb-10">
-          <span className="gradient-text">
-            {text.heading}
+        {/* SECTION LABEL */}
+
+        <div
+          className={`mb-14 flex items-center gap-4 transition-all duration-700 ${
+            visible
+              ? 'translate-y-0 opacity-100'
+              : 'translate-y-5 opacity-0'
+          }`}
+        >
+          <span className="font-mono text-[10px] tracking-[0.3em] text-white/30">
+            04
           </span>
-        </h2>
 
-        <div className="flex flex-col gap-6">
+          <span className="h-px w-10 bg-white/15" />
 
-          {/* DevOps Status Dashboard */}
-          <div className="glass-card rounded-xl p-8 sm:p-10">
-            <div className="flex flex-col gap-6">
+          <span className="font-mono text-[10px] tracking-[0.3em] text-white/35">
+            {text.label}
+          </span>
+        </div>
 
-              <div>
-                <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">
-                  {text.devopsType}
-                </span>
+        {/* HEADER */}
 
-                <h3 className="mt-4 text-2xl font-semibold text-white">
-                  DevOps Status Dashboard
-                </h3>
+        <div className="grid gap-14 lg:grid-cols-[1.1fr_0.9fr] lg:gap-24">
 
-                <p className="mt-3 max-w-3xl text-gray-400 leading-relaxed">
-                  {text.devopsDescription}
-                </p>
-              </div>
+          <div
+            className={`transition-all duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
+            }`}
+          >
+            <h2 className="text-[clamp(3.5rem,7vw,7.5rem)] font-semibold leading-[0.88] tracking-[-0.06em] text-white">
+              {text.heading}
 
-              <div className="flex flex-wrap gap-2">
-                {[
-                  'Docker',
-                  'Docker Compose',
-                  'Python',
-                  'Flask',
-                  'Gunicorn',
-                  'GitHub Actions',
-                  'CI/CD',
-                ].map((technology) => (
-                  <span
-                    key={technology}
-                    className="rounded-md bg-white/5 px-3 py-1.5 text-sm text-gray-300"
-                  >
-                    {technology}
-                  </span>
-                ))}
-              </div>
-
-              <div>
-                <a
-                  href="https://github.com/muhammeduveysarik/devops-status-app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-lg bg-cyan-500 px-5 py-3 font-medium text-slate-950 transition hover:bg-cyan-400"
-                >
-                  {text.github}
-                </a>
-              </div>
-
-            </div>
+              <span className="block text-white/30">
+                {text.headingAccent}
+              </span>
+            </h2>
           </div>
 
-          {/* KariyerAI */}
-          <div className="glass-card rounded-xl p-8 sm:p-10">
-            <div className="flex flex-col gap-6">
-
-              <div>
-                <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">
-                  {text.kariyerType}
-                </span>
-
-                <h3 className="mt-4 text-2xl font-semibold text-white">
-                  KariyerAI
-                </h3>
-
-                <p className="mt-3 max-w-3xl text-gray-400 leading-relaxed">
-                  {text.kariyerDescription}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {[
-                  'Python',
-                  'AI',
-                  'Flask',
-                  'Vercel',
-                ].map((technology) => (
-                  <span
-                    key={technology}
-                    className="rounded-md bg-white/5 px-3 py-1.5 text-sm text-gray-300"
-                  >
-                    {technology}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-
-                <a
-                  href="https://kariyerai.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-lg bg-cyan-500 px-5 py-3 font-medium text-slate-950 transition hover:bg-cyan-400"
-                >
-                  {text.liveSite}
-                </a>
-
-                <a
-                  href="https://github.com/muhammeduveysarik/kariyerai"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-lg border border-white/10 bg-white/5 px-5 py-3 font-medium text-white transition hover:bg-white/10"
-                >
-                  {text.github}
-                </a>
-
-              </div>
-            </div>
-          </div>
-
-          {/* StajRadar */}
-          <div className="glass-card rounded-xl p-8 sm:p-10">
-            <div className="flex flex-col gap-6">
-
-              <div>
-                <span className="inline-flex rounded-full border border-cyan-400/30 bg-cyan-400/10 px-3 py-1 text-sm text-cyan-300">
-                  {text.stajType}
-                </span>
-
-                <h3 className="mt-4 text-2xl font-semibold text-white">
-                  StajRadar
-                </h3>
-
-                <p className="mt-3 max-w-3xl text-gray-400 leading-relaxed">
-                  {text.stajDescription}
-                </p>
-              </div>
-
-              <div className="flex flex-wrap gap-2">
-                {[
-                  'Next.js',
-                  'React',
-                  'TypeScript',
-                  'Tailwind CSS',
-                  'Vercel',
-                ].map((technology) => (
-                  <span
-                    key={technology}
-                    className="rounded-md bg-white/5 px-3 py-1.5 text-sm text-gray-300"
-                  >
-                    {technology}
-                  </span>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-
-                <a
-                  href="https://stajradar.vercel.app"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-lg bg-cyan-500 px-5 py-3 font-medium text-slate-950 transition hover:bg-cyan-400"
-                >
-                  {text.liveSite}
-                </a>
-
-                <a
-                  href="https://github.com/muhammeduveysarik/stajradar"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex items-center rounded-lg border border-white/10 bg-white/5 px-5 py-3 font-medium text-white transition hover:bg-white/10"
-                >
-                  {text.github}
-                </a>
-
-              </div>
-            </div>
+          <div
+            className={`flex items-end transition-all delay-150 duration-1000 ${
+              visible
+                ? 'translate-y-0 opacity-100'
+                : 'translate-y-10 opacity-0'
+            }`}
+          >
+            <p className="max-w-xl text-lg leading-[1.8] text-white/45 sm:text-xl">
+              {text.intro}
+            </p>
           </div>
 
         </div>
+
+        {/* PROJECTS */}
+
+        <div className="mt-20 border-t border-white/10 sm:mt-28">
+
+          {projects.map((project, index) => (
+            <article
+              key={project.title}
+              style={{
+                transitionDelay: `${250 + index * 150}ms`,
+              }}
+              className={`group border-b border-white/10 py-14 transition-all duration-1000 sm:py-20 ${
+                visible
+                  ? 'translate-y-0 opacity-100'
+                  : 'translate-y-12 opacity-0'
+              }`}
+            >
+
+              <div className="grid gap-10 lg:grid-cols-[120px_1fr_0.9fr] lg:gap-14">
+
+                {/* NUMBER */}
+
+                <div>
+                  <span className="font-mono text-sm tracking-[0.2em] text-white/25">
+                    {project.number}
+                  </span>
+                </div>
+
+                {/* MAIN PROJECT INFO */}
+
+                <div>
+
+                  <p className="mb-5 font-mono text-[10px] tracking-[0.28em] text-white/35">
+                    {project.type}
+                  </p>
+
+                  <h3 className="max-w-2xl text-4xl font-medium leading-[1] tracking-[-0.045em] text-white transition-transform duration-500 group-hover:translate-x-2 sm:text-5xl lg:text-6xl">
+                    {project.title}
+                  </h3>
+
+                  <p className="mt-7 max-w-2xl text-base leading-[1.8] text-white/45 sm:text-lg">
+                    {project.description}
+                  </p>
+
+                </div>
+
+                {/* RIGHT SIDE */}
+
+                <div className="flex flex-col justify-between gap-10">
+
+                  {/* TECHNOLOGIES */}
+
+                  <div>
+
+                    <p className="mb-5 font-mono text-[9px] tracking-[0.25em] text-white/25">
+                      {text.stack}
+                    </p>
+
+                    <div className="flex flex-wrap gap-x-5 gap-y-3">
+
+                      {project.technologies.map(
+                        (technology, techIndex) => (
+                          <span
+                            key={technology}
+                            className="flex items-center gap-2 text-sm text-white/55"
+                          >
+                            <span className="font-mono text-[8px] text-white/20">
+                              {String(techIndex + 1).padStart(
+                                2,
+                                '0'
+                              )}
+                            </span>
+
+                            {technology}
+                          </span>
+                        )
+                      )}
+
+                    </div>
+
+                  </div>
+
+                  {/* LINKS */}
+
+                  <div className="flex flex-wrap gap-x-8 gap-y-4">
+
+                    {project.live && (
+                      <a
+                        href={project.live}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="group/link flex items-center gap-3 border-b border-white/20 pb-2 text-sm font-medium text-white/80 transition-colors hover:border-white hover:text-white"
+                      >
+                        {text.liveSite}
+
+                        <span className="transition-transform duration-300 group-hover/link:-translate-y-1 group-hover/link:translate-x-1">
+                          ↗
+                        </span>
+                      </a>
+                    )}
+
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="group/link flex items-center gap-3 border-b border-white/20 pb-2 text-sm font-medium text-white/80 transition-colors hover:border-white hover:text-white"
+                    >
+                      {text.github}
+
+                      <span className="transition-transform duration-300 group-hover/link:-translate-y-1 group-hover/link:translate-x-1">
+                        ↗
+                      </span>
+                    </a>
+
+                  </div>
+
+                </div>
+
+              </div>
+
+            </article>
+          ))}
+
+        </div>
+
       </div>
-    </SectionWrapper>
+
+      {/* SUBTLE BACKGROUND DECORATION */}
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-[350px] top-[250px] h-[700px] w-[700px] rounded-full border border-white/[0.02]"
+      />
+
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-[80px] top-[520px] h-[220px] w-[220px] rounded-full border border-white/[0.02]"
+      />
+
+    </section>
   )
 }
