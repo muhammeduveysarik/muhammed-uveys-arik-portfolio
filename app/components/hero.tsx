@@ -185,17 +185,6 @@ export default function Hero() {
 
         </div>
       </div>
-
-      {/* Scroll indicator */}
-      <div
-        className={`absolute bottom-8 left-1/2 -translate-x-1/2 transition-all duration-1000 delay-700 ${
-          visible ? 'opacity-100' : 'opacity-0'
-        }`}
-      >
-        <div className="w-6 h-10 rounded-full border-2 border-white/20 flex items-start justify-center p-1.5">
-          <div className="w-1 h-2.5 rounded-full bg-cyan-400 animate-bounce" />
-        </div>
-      </div>
     </section>
   )
 }
