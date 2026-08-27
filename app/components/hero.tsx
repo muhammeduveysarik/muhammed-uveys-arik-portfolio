@@ -70,8 +70,8 @@ export default function Hero() {
       id="hero"
       className="relative min-h-screen overflow-hidden bg-[#08090a] text-white"
     >
-      {/* Background */}
-      <div className="absolute inset-0 pointer-events-none">
+      {/* BACKGROUND */}
+      <div className="pointer-events-none absolute inset-0">
         <div className="absolute -left-40 top-0 h-[600px] w-[600px] rounded-full bg-white/[0.035] blur-[100px]" />
 
         <div className="absolute right-[5%] top-[10%] h-[700px] w-[700px] rounded-full border border-white/[0.06]" />
@@ -90,37 +90,39 @@ export default function Hero() {
                 : 'translate-y-10 opacity-0'
             }`}
           >
-            {/* Badge */}
+            {/* BADGE */}
             <div className="mb-8 inline-flex items-center gap-3 rounded-full border border-white/15 bg-white/[0.04] px-5 py-2.5 text-sm font-medium text-gray-300 backdrop-blur-md">
               <span className="h-2 w-2 rounded-full bg-white" />
               {text.badge}
             </div>
 
-            {/* NAME */}
-            <h1 className="mb-7 font-semibold tracking-[-0.055em] text-white">
-              <span className="block text-[clamp(4.2rem,7vw,8rem)] leading-[0.95]">
-                Muhammed
-              </span>
+            {/* NAME - FIXED */}
+            <div className="mb-8">
+              <h1 className="font-semibold tracking-[-0.055em] text-white">
+                <span className="block text-[clamp(4rem,7vw,8rem)] leading-none">
+                  Muhammed
+                </span>
 
-              <span className="block text-[clamp(4.2rem,7vw,8rem)] leading-[1.02]">
-                Üveys Arık
-              </span>
-            </h1>
+                <span className="mt-5 block text-[clamp(4rem,7vw,8rem)] leading-none">
+                  Üveys Arık
+                </span>
+              </h1>
+            </div>
 
-            {/* Title */}
+            {/* TITLE */}
             <p className="mb-7 text-xl font-medium text-gray-400 sm:text-2xl">
               {text.title}
             </p>
 
-            {/* Description */}
+            {/* DESCRIPTION */}
             <p className="mb-10 max-w-[720px] text-base leading-[1.75] text-gray-400 sm:text-lg">
               {text.description}
             </p>
 
-            {/* Buttons */}
+            {/* BUTTONS */}
             <div className="flex flex-wrap items-center gap-3">
 
-              {/* GitHub */}
+              {/* GITHUB */}
               <a
                 href="https://github.com/muhammeduveysarik"
                 target="_blank"
@@ -143,7 +145,7 @@ export default function Hero() {
                 </span>
               </a>
 
-              {/* LinkedIn */}
+              {/* LINKEDIN */}
               <a
                 href="https://www.linkedin.com/in/muveys/"
                 target="_blank"
@@ -190,6 +192,7 @@ export default function Hero() {
 
                 {text.cv}
               </a>
+
             </div>
           </div>
 
@@ -201,7 +204,7 @@ export default function Hero() {
                 : 'translate-x-10 opacity-0'
             }`}
           >
-            {/* Image */}
+            {/* PROFILE IMAGE */}
             <div className="relative aspect-[4/5] overflow-hidden rounded-[32px] border border-white/10 bg-[#111] shadow-2xl">
               <Image
                 src="/profile.jpg"
@@ -212,11 +215,10 @@ export default function Hero() {
                 className="object-cover"
               />
 
-              {/* subtle image overlay */}
               <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
             </div>
 
-            {/* Information card */}
+            {/* INFORMATION CARD */}
             <div className="relative mx-5 -mt-20 rounded-2xl border border-white/10 bg-[#121314]/90 p-6 shadow-2xl backdrop-blur-xl sm:mx-8">
               <div className="grid gap-6 sm:grid-cols-3">
 
