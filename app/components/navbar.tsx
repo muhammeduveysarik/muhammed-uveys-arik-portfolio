@@ -3,7 +3,6 @@
 import { useEffect, useState } from 'react'
 
 type Language = 'en' | 'tr'
-type Theme = 'light' | 'dark'
 
 const navLinks = {
   en: [
@@ -26,25 +25,17 @@ export default function Navbar() {
   const [scrolled, setScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
   const [language, setLanguage] = useState<Language>('en')
-  const [theme, setTheme] = useState<Theme>('dark')
 
   useEffect(() => {
+    // Siteyi her zaman DARK tut
+    document.documentElement.classList.add('dark')
+    document.documentElement.style.colorScheme = 'dark'
+    localStorage.removeItem('theme')
+
     const savedLanguage = localStorage.getItem('language')
 
     if (savedLanguage === 'en' || savedLanguage === 'tr') {
       setLanguage(savedLanguage)
-    }
-
-    const savedTheme = localStorage.getItem('theme')
-
-    if (savedTheme === 'light' || savedTheme === 'dark') {
-      setTheme(savedTheme)
-    } else {
-      setTheme(
-        document.documentElement.classList.contains('dark')
-          ? 'dark'
-          : 'light'
-      )
     }
 
     const handleScroll = () => {
@@ -81,22 +72,6 @@ export default function Navbar() {
     )
   }
 
-  const toggleTheme = () => {
-    const newTheme: Theme =
-      theme === 'dark' ? 'light' : 'dark'
-
-    setTheme(newTheme)
-    localStorage.setItem('theme', newTheme)
-
-    if (newTheme === 'dark') {
-      document.documentElement.classList.add('dark')
-    } else {
-      document.documentElement.classList.remove('dark')
-    }
-
-    document.documentElement.style.colorScheme = newTheme
-  }
-
   const handleNavClick = (href: string) => {
     setMobileOpen(false)
 
@@ -111,6 +86,7 @@ export default function Navbar() {
     <nav className="fixed inset-x-0 top-0 z-50 pointer-events-none">
       <div className="mx-auto max-w-[1400px] px-4 pt-4 sm:px-8">
 
+        {/* NAVBAR */}
         <div
           className={`
             pointer-events-auto
@@ -122,27 +98,21 @@ export default function Navbar() {
             ${
               scrolled
                 ? `
-                  border-black/[0.08]
-                  bg-white/[0.82]
-                  shadow-[0_8px_40px_rgba(0,0,0,0.08)]
-                  backdrop-blur-2xl
-                  dark:border-white/[0.08]
-                  dark:bg-[#080808]/[0.82]
-                  dark:shadow-[0_8px_40px_rgba(0,0,0,0.35)]
-                `
+                    border-white/[0.08]
+                    bg-[#080808]/[0.88]
+                    shadow-[0_8px_40px_rgba(0,0,0,0.40)]
+                    backdrop-blur-2xl
+                  `
                 : `
-                  border-black/[0.06]
-                  bg-white/[0.55]
-                  backdrop-blur-xl
-                  dark:border-white/[0.08]
-                  dark:bg-black/[0.35]
-                `
+                    border-white/[0.07]
+                    bg-black/[0.38]
+                    backdrop-blur-xl
+                  `
             }
           `}
         >
 
           {/* LOGO */}
-
           <button
             onClick={() =>
               window.scrollTo({
@@ -155,10 +125,9 @@ export default function Navbar() {
               text-sm
               font-bold
               tracking-[0.22em]
-              text-black
+              text-white
               transition-opacity
-              hover:opacity-50
-              dark:text-white
+              hover:opacity-60
             "
             aria-label="Back to top"
           >
@@ -166,30 +135,23 @@ export default function Navbar() {
           </button>
 
           {/* DESKTOP */}
-
           <div className="hidden items-center md:flex">
 
-            {/* LINKS */}
-
+            {/* NAV LINKS */}
             <div className="mr-5 flex items-center gap-1">
               {links.map((link) => (
                 <button
                   key={link.href}
-                  onClick={() =>
-                    handleNavClick(link.href)
-                  }
+                  onClick={() => handleNavClick(link.href)}
                   className="
                     rounded-lg
                     px-3 py-2
                     text-[12px]
                     font-medium
-                    text-black/45
+                    text-white/45
                     transition-all duration-300
-                    hover:bg-black/[0.04]
-                    hover:text-black
-                    dark:text-white/45
-                    dark:hover:bg-white/[0.05]
-                    dark:hover:text-white
+                    hover:bg-white/[0.05]
+                    hover:text-white
                   "
                 >
                   {link.label}
@@ -197,20 +159,19 @@ export default function Navbar() {
               ))}
             </div>
 
-            <div className="mr-5 h-5 w-px bg-black/10 dark:bg-white/10" />
+            {/* DIVIDER */}
+            <div className="mr-5 h-5 w-px bg-white/10" />
 
             {/* LANGUAGE */}
-
-            <div className="
-              flex items-center
-              rounded-full
-              border border-black/[0.07]
-              bg-black/[0.035]
-              p-[3px]
-              dark:border-white/[0.08]
-              dark:bg-white/[0.05]
-            ">
-
+            <div
+              className="
+                flex items-center
+                rounded-full
+                border border-white/[0.08]
+                bg-white/[0.05]
+                p-[3px]
+              "
+            >
               <button
                 onClick={() => changeLanguage('en')}
                 className={`
@@ -222,17 +183,8 @@ export default function Navbar() {
                   transition-all duration-300
                   ${
                     language === 'en'
-                      ? `
-                        bg-black text-white
-                        shadow-sm
-                        dark:bg-white dark:text-black
-                      `
-                      : `
-                        text-black/40
-                        hover:text-black
-                        dark:text-white/40
-                        dark:hover:text-white
-                      `
+                      ? 'bg-white text-black shadow-sm'
+                      : 'text-white/40 hover:text-white'
                   }
                 `}
               >
@@ -250,156 +202,28 @@ export default function Navbar() {
                   transition-all duration-300
                   ${
                     language === 'tr'
-                      ? `
-                        bg-black text-white
-                        shadow-sm
-                        dark:bg-white dark:text-black
-                      `
-                      : `
-                        text-black/40
-                        hover:text-black
-                        dark:text-white/40
-                        dark:hover:text-white
-                      `
+                      ? 'bg-white text-black shadow-sm'
+                      : 'text-white/40 hover:text-white'
                   }
                 `}
               >
                 TR
               </button>
-
             </div>
-
-            {/* THEME */}
-
-            <button
-              onClick={toggleTheme}
-              className="
-                ml-2
-                flex h-9 w-9
-                items-center justify-center
-                rounded-full
-                text-black/50
-                transition-all duration-300
-                hover:bg-black/[0.05]
-                hover:text-black
-                dark:text-white/50
-                dark:hover:bg-white/[0.07]
-                dark:hover:text-white
-              "
-              aria-label={
-                theme === 'dark'
-                  ? 'Switch to light mode'
-                  : 'Switch to dark mode'
-              }
-            >
-              {theme === 'dark' ? (
-
-                /* SUN */
-
-                <svg
-                  width="17"
-                  height="17"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2" />
-                  <path d="M12 20v2" />
-                  <path d="M4.93 4.93l1.41 1.41" />
-                  <path d="M17.66 17.66l1.41 1.41" />
-                  <path d="M2 12h2" />
-                  <path d="M20 12h2" />
-                  <path d="M6.34 17.66l-1.41 1.41" />
-                  <path d="M19.07 4.93l-1.41 1.41" />
-                </svg>
-
-              ) : (
-
-                /* MOON */
-
-                <svg
-                  width="17"
-                  height="17"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-
-              )}
-            </button>
-
           </div>
 
-          {/* MOBILE CONTROLS */}
-
-          <div className="flex items-center gap-1 md:hidden">
-
+          {/* MOBILE */}
+          <div className="flex items-center md:hidden">
             <button
-              onClick={toggleTheme}
+              onClick={() => setMobileOpen(!mobileOpen)}
               className="
                 flex h-9 w-9
                 items-center justify-center
                 rounded-full
-                text-black/55
+                text-white/55
                 transition-all
-                hover:bg-black/5
-                dark:text-white/55
-                dark:hover:bg-white/[0.07]
-              "
-              aria-label="Toggle theme"
-            >
-              {theme === 'dark' ? (
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <circle cx="12" cy="12" r="4" />
-                  <path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" />
-                </svg>
-              ) : (
-                <svg
-                  width="18"
-                  height="18"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="1.7"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                >
-                  <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z" />
-                </svg>
-              )}
-            </button>
-
-            <button
-              onClick={() =>
-                setMobileOpen(!mobileOpen)
-              }
-              className="
-                flex h-9 w-9
-                items-center justify-center
-                rounded-full
-                text-black/55
-                transition-all
-                hover:bg-black/5
-                dark:text-white/55
-                dark:hover:bg-white/[0.07]
+                hover:bg-white/[0.07]
+                hover:text-white
               "
               aria-label="Toggle menu"
             >
@@ -432,12 +256,10 @@ export default function Navbar() {
                 </svg>
               )}
             </button>
-
           </div>
         </div>
 
         {/* MOBILE MENU */}
-
         <div
           className={`
             pointer-events-auto
@@ -454,22 +276,17 @@ export default function Navbar() {
           <div
             className="
               rounded-2xl
-              border border-black/[0.08]
-              bg-white/[0.92]
+              border border-white/[0.08]
+              bg-[#080808]/[0.95]
               p-3
               shadow-xl
               backdrop-blur-2xl
-              dark:border-white/[0.08]
-              dark:bg-[#080808]/[0.92]
             "
           >
-
             {links.map((link) => (
               <button
                 key={link.href}
-                onClick={() =>
-                  handleNavClick(link.href)
-                }
+                onClick={() => handleNavClick(link.href)}
                 className="
                   block w-full
                   rounded-xl
@@ -477,35 +294,30 @@ export default function Navbar() {
                   text-left
                   text-sm
                   font-medium
-                  text-black/55
+                  text-white/55
                   transition-all
-                  hover:bg-black/[0.04]
-                  hover:text-black
-                  dark:text-white/55
-                  dark:hover:bg-white/[0.05]
-                  dark:hover:text-white
+                  hover:bg-white/[0.05]
+                  hover:text-white
                 "
               >
                 {link.label}
               </button>
             ))}
 
-            <div className="my-3 h-px bg-black/[0.08] dark:bg-white/[0.08]" />
+            <div className="my-3 h-px bg-white/[0.08]" />
 
+            {/* MOBILE LANGUAGE */}
             <div className="flex gap-2">
-
               <button
-                onClick={() =>
-                  changeLanguage('en')
-                }
+                onClick={() => changeLanguage('en')}
                 className={`
                   flex-1 rounded-xl py-2.5
                   text-xs font-semibold
                   transition-all
                   ${
                     language === 'en'
-                      ? 'bg-black text-white dark:bg-white dark:text-black'
-                      : 'bg-black/[0.04] text-black/45 dark:bg-white/[0.05] dark:text-white/45'
+                      ? 'bg-white text-black'
+                      : 'bg-white/[0.05] text-white/45'
                   }
                 `}
               >
@@ -513,28 +325,23 @@ export default function Navbar() {
               </button>
 
               <button
-                onClick={() =>
-                  changeLanguage('tr')
-                }
+                onClick={() => changeLanguage('tr')}
                 className={`
                   flex-1 rounded-xl py-2.5
                   text-xs font-semibold
                   transition-all
                   ${
                     language === 'tr'
-                      ? 'bg-black text-white dark:bg-white dark:text-black'
-                      : 'bg-black/[0.04] text-black/45 dark:bg-white/[0.05] dark:text-white/45'
+                      ? 'bg-white text-black'
+                      : 'bg-white/[0.05] text-white/45'
                   }
                 `}
               >
                 Türkçe
               </button>
-
             </div>
-
           </div>
         </div>
-
       </div>
     </nav>
   )
