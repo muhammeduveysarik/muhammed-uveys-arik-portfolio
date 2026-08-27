@@ -2,84 +2,58 @@
 @tailwind components;
 @tailwind utilities;
 
+/* =========================================================
+   THEME SYSTEM
+   ========================================================= */
+
 @layer base {
   :root {
-    /* LIGHT THEME */
+    /* LIGHT MODE */
     --background: 0 0% 98%;
-    --foreground: 222 20% 10%;
+    --foreground: 220 20% 10%;
 
     --card: 0 0% 100%;
-    --card-foreground: 222 20% 10%;
+    --card-foreground: 220 20% 10%;
 
-    --popover: 0 0% 100%;
-    --popover-foreground: 222 20% 10%;
+    --muted: 220 10% 94%;
+    --muted-foreground: 220 8% 42%;
 
-    --primary: 222 20% 12%;
+    --border: 220 10% 86%;
+
+    --primary: 220 20% 10%;
     --primary-foreground: 0 0% 100%;
 
-    --secondary: 220 14% 96%;
-    --secondary-foreground: 222 20% 15%;
-
-    --muted: 220 14% 96%;
-    --muted-foreground: 220 9% 46%;
-
-    --accent: 220 14% 92%;
-    --accent-foreground: 222 20% 12%;
-
-    --destructive: 0 72% 51%;
-    --destructive-foreground: 0 0% 100%;
-
-    --border: 220 13% 89%;
-    --input: 220 13% 89%;
-    --ring: 222 20% 20%;
-
     --radius: 0.75rem;
-    --radius-sm: calc(0.75rem - 4px);
-    --radius-lg: calc(0.75rem + 4px);
-    --radius-full: 9999px;
 
-    --shadow-sm: 0 1px 3px rgb(15 23 42 / 0.05);
-    --shadow-md: 0 10px 30px rgb(15 23 42 / 0.08);
-    --shadow-lg: 0 25px 60px rgb(15 23 42 / 0.12);
+    --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.05);
+    --shadow-md: 0 12px 35px rgb(0 0 0 / 0.08);
+    --shadow-lg: 0 25px 60px rgb(0 0 0 / 0.12);
   }
 
   .dark {
-    /* DARK THEME */
+    /* DARK MODE */
     --background: 225 10% 5%;
     --foreground: 0 0% 96%;
 
     --card: 225 8% 8%;
     --card-foreground: 0 0% 96%;
 
-    --popover: 225 8% 8%;
-    --popover-foreground: 0 0% 96%;
+    --muted: 225 7% 13%;
+    --muted-foreground: 220 7% 62%;
+
+    --border: 225 7% 18%;
 
     --primary: 0 0% 96%;
     --primary-foreground: 225 10% 5%;
 
-    --secondary: 225 7% 13%;
-    --secondary-foreground: 0 0% 92%;
-
-    --muted: 225 7% 13%;
-    --muted-foreground: 220 7% 62%;
-
-    --accent: 225 7% 17%;
-    --accent-foreground: 0 0% 96%;
-
-    --destructive: 0 62% 45%;
-    --destructive-foreground: 0 0% 98%;
-
-    --border: 225 7% 18%;
-    --input: 225 7% 18%;
-    --ring: 0 0% 80%;
-
     --shadow-sm: 0 1px 3px rgb(0 0 0 / 0.35);
-    --shadow-md: 0 10px 30px rgb(0 0 0 / 0.4);
+    --shadow-md: 0 12px 35px rgb(0 0 0 / 0.4);
     --shadow-lg: 0 25px 60px rgb(0 0 0 / 0.5);
   }
 
   html {
     scroll-behavior: smooth;
+    background: hsl(var(--background));
   }
 
   * {
@@ -87,7 +61,9 @@
   }
 
   body {
-    background-color: hsl(var(--background));
+    margin: 0;
+
+    background: hsl(var(--background));
     color: hsl(var(--foreground));
 
     transition:
@@ -100,7 +76,7 @@
   }
 
   ::selection {
-    background-color: hsl(var(--foreground) / 0.12);
+    background: hsl(var(--foreground) / 0.14);
     color: hsl(var(--foreground));
   }
 
@@ -114,16 +90,17 @@
   }
 
   ::-webkit-scrollbar-thumb {
-    background-color: hsl(var(--border));
+    background: hsl(var(--border));
     border-radius: 9999px;
-  }
-
-  ::-webkit-scrollbar-thumb:hover {
-    background-color: hsl(var(--muted-foreground) / 0.5);
   }
 }
 
+/* =========================================================
+   GENERAL DESIGN
+   ========================================================= */
+
 @layer utilities {
+
   .scrollbar-none::-webkit-scrollbar {
     display: none;
   }
@@ -133,18 +110,16 @@
     scrollbar-width: none;
   }
 
-  /* HERO - CLEAN NEUTRAL BACKGROUND */
+  /* ---------------------------------------------------------
+     HERO
+     --------------------------------------------------------- */
+
   .hero-gradient {
     background:
       radial-gradient(
-        ellipse 55% 40% at 50% -10%,
-        rgb(100 116 139 / 0.08),
-        transparent
-      ),
-      radial-gradient(
-        ellipse 35% 30% at 85% 10%,
-        rgb(148 163 184 / 0.05),
-        transparent
+        ellipse 60% 45% at 50% -15%,
+        rgb(0 0 0 / 0.035),
+        transparent 70%
       ),
       hsl(var(--background));
   }
@@ -152,26 +127,25 @@
   .dark .hero-gradient {
     background:
       radial-gradient(
-        ellipse 55% 40% at 50% -10%,
-        rgb(255 255 255 / 0.055),
-        transparent
-      ),
-      radial-gradient(
-        ellipse 35% 30% at 85% 10%,
-        rgb(255 255 255 / 0.025),
-        transparent
+        ellipse 60% 45% at 50% -15%,
+        rgb(255 255 255 / 0.05),
+        transparent 70%
       ),
       hsl(var(--background));
   }
 
-  /* GLASS CARDS */
+
+  /* ---------------------------------------------------------
+     GLASS CARDS
+     --------------------------------------------------------- */
+
   .glass-card {
-    background: hsl(var(--card) / 0.78);
+    background: hsl(var(--card) / 0.85);
 
     backdrop-filter: blur(16px);
     -webkit-backdrop-filter: blur(16px);
 
-    border: 1px solid hsl(var(--border) / 0.75);
+    border: 1px solid hsl(var(--border));
 
     box-shadow: var(--shadow-sm);
 
@@ -185,20 +159,29 @@
   .glass-card:hover {
     transform: translateY(-3px);
     box-shadow: var(--shadow-md);
-    border-color: hsl(var(--foreground) / 0.16);
   }
 
-  /* MAIN HEADINGS - NO BLUE GRADIENT */
+
+  /* ---------------------------------------------------------
+     OLD GRADIENT TEXT -> NORMAL TEXT
+     --------------------------------------------------------- */
+
   .gradient-text {
-    background: none;
-    -webkit-background-clip: initial;
-    -webkit-text-fill-color: currentColor;
-    background-clip: initial;
+    background: none !important;
 
-    color: hsl(var(--foreground));
+    -webkit-background-clip: initial !important;
+    background-clip: initial !important;
+
+    -webkit-text-fill-color: currentColor !important;
+
+    color: hsl(var(--foreground)) !important;
   }
 
-  /* CLEAN BORDER */
+
+  /* ---------------------------------------------------------
+     OLD GRADIENT BORDER -> NEUTRAL BORDER
+     --------------------------------------------------------- */
+
   .gradient-border {
     position: relative;
   }
@@ -209,33 +192,175 @@
     inset: 0;
 
     border-radius: inherit;
-    padding: 1px;
 
-    background: linear-gradient(
-      135deg,
-      hsl(var(--foreground) / 0.15),
-      hsl(var(--foreground) / 0.03),
-      hsl(var(--foreground) / 0.1)
-    );
-
-    -webkit-mask:
-      linear-gradient(#fff 0 0) content-box,
-      linear-gradient(#fff 0 0);
-
-    -webkit-mask-composite: xor;
-    mask-composite: exclude;
+    border: 1px solid hsl(var(--foreground) / 0.08);
 
     pointer-events: none;
   }
 
-  /* SECTION ANIMATION */
+
+  /* =========================================================
+     LIGHT MODE FIXES
+     ========================================================= */
+
+  html:not(.dark) .text-white {
+    color: rgb(17 24 39) !important;
+  }
+
+  html:not(.dark) .text-gray-100 {
+    color: rgb(17 24 39) !important;
+  }
+
+  html:not(.dark) .text-gray-200 {
+    color: rgb(31 41 55) !important;
+  }
+
+  html:not(.dark) .text-gray-300 {
+    color: rgb(55 65 81) !important;
+  }
+
+  html:not(.dark) .text-gray-400 {
+    color: rgb(75 85 99) !important;
+  }
+
+  html:not(.dark) .text-gray-500 {
+    color: rgb(100 116 139) !important;
+  }
+
+  html:not(.dark) .text-gray-600 {
+    color: rgb(107 114 128) !important;
+  }
+
+
+  /* opacity text fixes */
+
+  html:not(.dark) .text-gray-400\/80 {
+    color: rgb(75 85 99 / 0.9) !important;
+  }
+
+  html:not(.dark) .text-gray-400\/70 {
+    color: rgb(75 85 99 / 0.85) !important;
+  }
+
+  html:not(.dark) .text-gray-500\/80 {
+    color: rgb(100 116 139 / 0.9) !important;
+  }
+
+
+  /* ---------------------------------------------------------
+     LIGHT BACKGROUNDS
+     --------------------------------------------------------- */
+
+  html:not(.dark) .bg-white\/5 {
+    background-color: rgb(15 23 42 / 0.035) !important;
+  }
+
+  html:not(.dark) .bg-white\/10 {
+    background-color: rgb(15 23 42 / 0.06) !important;
+  }
+
+  html:not(.dark) .bg-black\/20 {
+    background-color: rgb(15 23 42 / 0.035) !important;
+  }
+
+  html:not(.dark) .bg-black\/30 {
+    background-color: rgb(15 23 42 / 0.05) !important;
+  }
+
+
+  /* ---------------------------------------------------------
+     LIGHT BORDERS
+     --------------------------------------------------------- */
+
+  html:not(.dark) .border-white\/5 {
+    border-color: rgb(15 23 42 / 0.08) !important;
+  }
+
+  html:not(.dark) .border-white\/10 {
+    border-color: rgb(15 23 42 / 0.12) !important;
+  }
+
+  html:not(.dark) .border-white\/20 {
+    border-color: rgb(15 23 42 / 0.16) !important;
+  }
+
+
+  /* =========================================================
+     REMOVE BLUE / CYAN COLORS
+     ========================================================= */
+
+  .text-cyan-300,
+  .text-cyan-400,
+  .text-cyan-500,
+  .text-blue-300,
+  .text-blue-400,
+  .text-blue-500 {
+    color: hsl(var(--foreground)) !important;
+  }
+
+
+  /* CYAN BACKGROUNDS */
+
+  .bg-cyan-400,
+  .bg-cyan-500,
+  .bg-blue-400,
+  .bg-blue-500 {
+    background: hsl(var(--foreground)) !important;
+    color: hsl(var(--background)) !important;
+  }
+
+
+  /* TRANSPARENT CYAN BACKGROUNDS */
+
+  .bg-cyan-400\/10,
+  .bg-cyan-500\/10,
+  .bg-cyan-500\/20,
+  .bg-blue-400\/10,
+  .bg-blue-500\/10,
+  .bg-blue-500\/20 {
+    background: hsl(var(--foreground) / 0.07) !important;
+  }
+
+
+  /* CYAN / BLUE BORDERS */
+
+  .border-cyan-400\/20,
+  .border-cyan-400\/30,
+  .border-cyan-500\/20,
+  .border-cyan-500\/30,
+  .border-blue-400\/20,
+  .border-blue-500\/20,
+  .border-blue-500\/30 {
+    border-color: hsl(var(--foreground) / 0.16) !important;
+  }
+
+
+  /* HOVER CYAN */
+
+  .hover\:text-cyan-300:hover,
+  .hover\:text-cyan-400:hover,
+  .hover\:text-blue-400:hover {
+    color: hsl(var(--foreground)) !important;
+  }
+
+  .hover\:border-cyan-500\/20:hover,
+  .hover\:border-cyan-500\/30:hover,
+  .hover\:border-blue-500\/30:hover {
+    border-color: hsl(var(--foreground) / 0.25) !important;
+  }
+
+
+  /* =========================================================
+     SECTION ANIMATIONS
+     ========================================================= */
+
   .animate-fade-up {
     opacity: 0;
-    transform: translateY(24px);
+    transform: translateY(28px);
 
     transition:
-      opacity 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-      transform 0.7s cubic-bezier(0.22, 1, 0.36, 1);
+      opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1),
+      transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
   }
 
   .animate-fade-up.visible {
@@ -243,85 +368,13 @@
     transform: translateY(0);
   }
 
-  /* LIGHT MODE TAILWIND COLOR FIXES */
-  html:not(.dark) .text-white {
-    color: rgb(17 24 39);
-  }
 
-  html:not(.dark) .text-gray-100 {
-    color: rgb(31 41 55);
-  }
+  /* =========================================================
+     ACCESSIBILITY
+     ========================================================= */
 
-  html:not(.dark) .text-gray-200 {
-    color: rgb(55 65 81);
-  }
-
-  html:not(.dark) .text-gray-300 {
-    color: rgb(55 65 81);
-  }
-
-  html:not(.dark) .text-gray-400 {
-    color: rgb(75 85 99);
-  }
-
-  html:not(.dark) .text-gray-500 {
-    color: rgb(107 114 128);
-  }
-
-  html:not(.dark) .bg-white\/5 {
-    background-color: rgb(17 24 39 / 0.035);
-  }
-
-  html:not(.dark) .bg-white\/10 {
-    background-color: rgb(17 24 39 / 0.065);
-  }
-
-  html:not(.dark) .border-white\/5 {
-    border-color: rgb(17 24 39 / 0.07);
-  }
-
-  html:not(.dark) .border-white\/10 {
-    border-color: rgb(17 24 39 / 0.11);
-  }
-
-  /* REMOVE CYAN / BLUE FROM COMMON EXISTING CLASSES */
-
-  .text-cyan-300,
-  .text-cyan-400,
-  .text-cyan-500,
-  .text-blue-400,
-  .text-blue-500 {
-    color: hsl(var(--foreground)) !important;
-  }
-
-  .bg-cyan-400,
-  .bg-cyan-500,
-  .bg-blue-500 {
-    background-color: hsl(var(--foreground)) !important;
-    color: hsl(var(--background)) !important;
-  }
-
-  .bg-cyan-400\/10,
-  .bg-cyan-500\/10,
-  .bg-cyan-500\/20 {
-    background-color: hsl(var(--foreground) / 0.07) !important;
-  }
-
-  .border-cyan-400\/30,
-  .border-cyan-500\/20,
-  .border-cyan-500\/30,
-  .border-blue-500\/30 {
-    border-color: hsl(var(--foreground) / 0.16) !important;
-  }
-
-  /* STATUS DOTS */
-  .bg-cyan-400,
-  .bg-cyan-500 {
-    background-color: hsl(var(--foreground)) !important;
-  }
-
-  /* ACCESSIBILITY */
   @media (prefers-reduced-motion: reduce) {
+
     html {
       scroll-behavior: auto;
     }
