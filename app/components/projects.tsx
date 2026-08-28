@@ -24,6 +24,10 @@ const content = {
     stajDescription:
       'A web application for managing and tracking internship applications. Includes application management, status tracking, filtering, dashboard statistics, and a follow-up center.',
 
+    dataPulseType: 'DATA ENGINEERING',
+    dataPulseDescription:
+      'A data engineering project designed to collect, process, transform, and analyze data through a structured pipeline. Built to explore practical ETL workflows and modern data engineering concepts.',
+
     liveSite: 'Live Site',
     github: 'GitHub',
     stack: 'TECHNOLOGIES',
@@ -47,6 +51,10 @@ const content = {
     stajType: 'WEB UYGULAMASI',
     stajDescription:
       'Staj başvurularını tek noktadan yönetmek ve takip etmek için geliştirilmiş web uygulaması. Başvuru yönetimi, durum takibi, filtreleme, dashboard ve Takip Merkezi özelliklerini içerir.',
+
+    dataPulseType: 'VERİ MÜHENDİSLİĞİ',
+    dataPulseDescription:
+      'Verileri toplamak, işlemek, dönüştürmek ve analiz etmek amacıyla geliştirilmiş bir veri mühendisliği projesi. ETL süreçleri ve modern veri mühendisliği yaklaşımlarını uygulamalı olarak deneyimlemek için geliştirildi.',
 
     liveSite: 'Canlı Site',
     github: 'GitHub',
@@ -150,6 +158,24 @@ export default function Projects() {
       github:
         'https://github.com/muhammeduveysarik/stajradar',
       live: 'https://stajradar.vercel.app',
+    },
+
+    {
+      number: '04',
+      type: text.dataPulseType,
+      title: 'DataPulse',
+      description: text.dataPulseDescription,
+      technologies: [
+        'Python',
+        'Pandas',
+        'ETL',
+        'Data Pipeline',
+        'CSV',
+        'Data Engineering',
+      ],
+      github:
+        'https://github.com/muhammeduveysarik/datapulse',
+      live: null,
     },
   ]
 
