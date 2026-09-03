@@ -12,6 +12,10 @@ const content = {
     intro:
       'A selection of projects where I turn what I learn into practical applications and experiment with different technologies.',
 
+    neuralFlowType: 'ARTIFICIAL INTELLIGENCE',
+    neuralFlowDescription:
+      'An AI-powered roadmap generator that transforms a user’s goal into a structured, step-by-step learning path with topics, projects, estimated durations, and actionable guidance.',
+
     devopsType: 'DEVOPS',
     devopsDescription:
       'A Flask-based status monitoring application running inside a Docker container. Includes service health checks, Gunicorn, Docker Compose, and an automated CI pipeline with GitHub Actions.',
@@ -39,6 +43,10 @@ const content = {
     headingAccent: 'projeler.',
     intro:
       'Öğrendiklerimi gerçek uygulamalara dönüştürdüğüm ve farklı teknolojileri deneyimlediğim projelerden bazıları.',
+
+    neuralFlowType: 'YAPAY ZEKÂ',
+    neuralFlowDescription:
+      'Kullanıcının hedefini analiz ederek konular, projeler, tahmini süreler ve uygulanabilir adımlardan oluşan kişiselleştirilmiş bir yol haritası oluşturan yapay zekâ destekli web uygulaması.',
 
     devopsType: 'DEVOPS',
     devopsDescription:
@@ -115,6 +123,25 @@ export default function Projects() {
   const projects = [
     {
       number: '01',
+      type: text.neuralFlowType,
+      title: 'NeuralFlow',
+      description: text.neuralFlowDescription,
+      technologies: [
+        'Next.js',
+        'TypeScript',
+        'React',
+        'Tailwind CSS',
+        'AI / LLM',
+        'Groq API',
+        'React Flow',
+        'Vercel',
+      ],
+      github: 'https://github.com/muhammeduveysarik/neuralflow',
+      live: 'https://neuralflow-six.vercel.app/',
+    },
+
+    {
+      number: '02',
       type: text.devopsType,
       title: 'DevOps Status Dashboard',
       description: text.devopsDescription,
@@ -133,7 +160,7 @@ export default function Projects() {
     },
 
     {
-      number: '02',
+      number: '03',
       type: text.kariyerType,
       title: 'KariyerAI',
       description: text.kariyerDescription,
@@ -144,7 +171,7 @@ export default function Projects() {
     },
 
     {
-      number: '03',
+      number: '04',
       type: text.stajType,
       title: 'StajRadar',
       description: text.stajDescription,
@@ -161,7 +188,7 @@ export default function Projects() {
     },
 
     {
-      number: '04',
+      number: '05',
       type: text.dataPulseType,
       title: 'DataPulse',
       description: text.dataPulseDescription,
